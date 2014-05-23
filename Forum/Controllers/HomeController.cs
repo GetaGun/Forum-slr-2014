@@ -35,6 +35,7 @@ namespace Forum.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 questions = questions.Where(q => q.QuestionName.ToUpper().Contains(searchString.ToUpper())
+                                       || q.QuestionKeyword.ToUpper().Contains(searchString.ToUpper())
                                        || q.QuestionDescription.ToUpper().Contains(searchString.ToUpper()));
             }
 
