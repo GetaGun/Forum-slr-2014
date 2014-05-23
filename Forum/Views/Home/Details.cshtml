@@ -1,0 +1,51 @@
+﻿@model Forum.Models.Questions
+@{
+    ViewBag.Title = "Question Details";
+}
+
+<fieldset>
+    <legend>Questions Details</legend>
+    <br />
+    <div class="display-label">
+         <b>Question Groupname</b>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(q => q.QuestionGroups.QuestionGroupName)
+    </div>
+    <div class="display-label">
+         <b>Question Name</b>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(q => q.QuestionName)
+    </div>
+    <div class="display-label">
+         <b>Question Description</b>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(q => q.QuestionDescription)
+    </div>
+    <div class="display-label">
+         <b>Date and Time</b>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(q => q.DateTime)
+    </div>
+    <div class="display-label">
+        <b>Votes</b>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(q => q.Votes)
+    </div>
+    <div class="display-label">
+        <b>Handled</b>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(q => q.Handled)
+    </div>
+    <p>
+        @Html.ActionLink("Answer this Question", "Create", "Message", new { id = Model.QuestionId }, null) | @Html.ActionLink("Back", "Index")
+    </p>
+</fieldset>
+@Html.Partial("~/Views/Message/_Index.cshtml", Model.Messages)
+
+

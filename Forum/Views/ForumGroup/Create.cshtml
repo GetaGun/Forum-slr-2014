@@ -1,0 +1,25 @@
+﻿@model Forum.Models.QuestionGroups
+
+@{
+    ViewBag.Title = "Create Forum Group";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Forum Groups</legend>
+
+        <div class="editor-label">
+            <b>Group</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QuestionGroupName)
+            @Html.ValidationMessageFor(model => model.QuestionGroupName)
+        </div>
+        <br />
+        <input type="submit" value="Create" /> | @Html.ActionLink("Back to Create", "Create", "Home")
+    </fieldset>
+}

@@ -1,0 +1,44 @@
+﻿@model Forum.Models.Questions
+@{
+    ViewBag.Title = "Create Question";
+}
+
+<fieldset>
+<legend>Create Question</legend>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true);
+    <div>
+        <div class="editor-label">
+            <b>Question Name</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(q => q.QuestionName)
+            @Html.ValidationMessageFor(q => q.QuestionName)
+        </div>
+        <div class="editor-label">
+            <b>Forum Group</b> - @Html.ActionLink("New forum group", "Create", "ForumGroup")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("QuestionGroupId", String.Empty)
+            @Html.ValidationMessageFor(q => q.QuestionGroupId)
+        </div>
+        <div class="editor-label">
+           <b>Question Description</b>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(q => q.QuestionDescription, new { @rows="10" })
+            @Html.ValidationMessageFor(q => q.QuestionDescription)
+        </div>
+        <div class="editor-label">
+            <b>Date and Time</b>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DateTime, new { Value = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") })
+            @Html.ValidationMessageFor(q => q.DateTime)
+        </div><br />
+        <input type="submit" value="Create" /> | @Html.ActionLink("Back", "Index")
+    </div>
+}
+</fieldset>

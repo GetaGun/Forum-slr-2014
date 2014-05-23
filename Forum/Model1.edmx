@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="Model1TargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="QuestionsSet" EntityType="Model1.Questions" />
+          <EntitySet Name="QuestionGroupsSet" EntityType="Model1.QuestionGroups" />
+          <EntitySet Name="UserProfilesSet" EntityType="Model1.UserProfiles" />
+          <EntitySet Name="UserRolesSet" EntityType="Model1.UserRoles" />
+          <AssociationSet Name="QuestionsQuestion_groups" Association="Model1.QuestionsQuestion_groups">
+            <End Role="Questions" EntitySet="QuestionsSet" />
+            <End Role="Question_groups" EntitySet="QuestionGroupsSet" />
+          </AssociationSet>
+          <AssociationSet Name="UserProfilesUserRoles" Association="Model1.UserProfilesUserRoles">
+            <End Role="UserProfiles" EntitySet="UserProfilesSet" />
+            <End Role="UserRoles" EntitySet="UserRolesSet" />
+          </AssociationSet>
+          <AssociationSet Name="UserProfilesQuestions" Association="Model1.UserProfilesQuestions">
+            <End Role="UserProfiles" EntitySet="UserProfilesSet" />
+            <End Role="Questions" EntitySet="QuestionsSet" />
+          </AssociationSet>
+          <EntitySet Name="MessagesSet" EntityType="Model1.Messages" />
+          <AssociationSet Name="MessagesQuestions" Association="Model1.MessagesQuestions">
+            <End Role="Messages" EntitySet="MessagesSet" />
+            <End Role="Questions" EntitySet="QuestionsSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="QuestionGroup_Id" Nullable="false" />
+          <Property Type="String" Name="User_Id" Nullable="false" />
+          <Property Type="String" Name="Question_name" Nullable="false" />
+          <NavigationProperty Name="QuestionGroups" Relationship="Model1.QuestionsQuestion_groups" FromRole="Questions" ToRole="Question_groups" />
+          <NavigationProperty Name="UserProfiles" Relationship="Model1.UserProfilesQuestions" FromRole="Questions" ToRole="UserProfiles" />
+          <Property Name="Date" Nullable="false" Type="String" />
+          <NavigationProperty Name="Messages" Relationship="Model1.MessagesQuestions" FromRole="Questions" ToRole="Messages" />
+          <Property Type="String" Name="Handled" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionGroups">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Type="String" Name="QuestionGroup_name" Nullable="false" />
+          <NavigationProperty Name="Questions" Relationship="Model1.QuestionsQuestion_groups" FromRole="Question_groups" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="UserProfiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Role_Id" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="false" />
+          <Property Type="String" Name="First_Name" Nullable="false" />
+          <Property Type="String" Name="Last_Name" Nullable="false" />
+          <Property Type="String" Name="Password" Nullable="false" />
+          <NavigationProperty Name="UserRoles" Relationship="Model1.UserProfilesUserRoles" FromRole="UserProfiles" ToRole="UserRoles" />
+          <NavigationProperty Name="Questions" Relationship="Model1.UserProfilesQuestions" FromRole="UserProfiles" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Role_name" Nullable="false" />
+          <NavigationProperty Name="UserProfiles" Relationship="Model1.UserProfilesUserRoles" FromRole="UserRoles" ToRole="UserProfiles" />
+        </EntityType>
+        <Association Name="QuestionsQuestion_groups">
+          <End Type="Model1.Questions" Role="Questions" Multiplicity="1" />
+          <End Type="Model1.QuestionGroups" Role="Question_groups" Multiplicity="*" />
+        </Association>
+        <Association Name="UserProfilesUserRoles">
+          <End Type="Model1.UserProfiles" Role="UserProfiles" Multiplicity="1" />
+          <End Type="Model1.UserRoles" Role="UserRoles" Multiplicity="*" />
+        </Association>
+        <Association Name="UserProfilesQuestions">
+          <End Type="Model1.UserProfiles" Role="UserProfiles" Multiplicity="1" />
+          <End Type="Model1.Questions" Role="Questions" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Question_Id" Nullable="false" />
+          <Property Type="String" Name="Message_text" Nullable="false" />
+          <NavigationProperty Name="Questions" Relationship="Model1.MessagesQuestions" FromRole="Messages" ToRole="Questions" />
+        </EntityType>
+        <Association Name="MessagesQuestions">
+          <End Type="Model1.Messages" Role="Messages" Multiplicity="1" />
+          <End Type="Model1.Questions" Role="Questions" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

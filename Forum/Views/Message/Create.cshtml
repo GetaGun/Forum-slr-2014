@@ -1,0 +1,33 @@
+﻿@model Forum.Models.Messages
+@{
+    ViewBag.Title = "Create Message";
+}
+
+<fieldset>
+<legend>Create Message</legend>
+@using (Html.BeginForm("Create", "Message", new { id = ViewBag.QuestionId }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true);
+    <div>
+        <div class="editor-field">
+            @Html.Hidden("QuestionId", (object)ViewBag.QuestionId)
+        </div>
+        <div class="editor-label">
+           <b>Message Description</b>
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(m => m.MessageText, new { @rows="10" })
+            @Html.ValidationMessageFor(m => m.MessageText)
+        </div>
+        <div class="editor-label">
+            <b>Date and Time</b>
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.DateTime, new { Value = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") })
+            @Html.ValidationMessageFor(m => m.DateTime)
+        </div><br />
+        <input type="submit" value="Create" /> | @Html.ActionLink("Back", "Details", "Home", new { id = ViewBag.QuestionId }, null)
+    </div>
+}
+</fieldset>

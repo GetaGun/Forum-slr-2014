@@ -1,0 +1,103 @@
+﻿@model PagedList.IPagedList<Forum.Models.Questions>
+
+@helper Truncate(string input, int length)
+    { 
+     if (input.Length <= length)
+     { 
+        @input 
+     }
+     else
+     { 
+        @input.Substring(0, length)<text>...</text> 
+     } 
+}
+@{
+    ViewBag.Title = "Index Questions";
+}
+
+<fieldset>
+    <legend>Questions</legend>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <p>
+               <i>Group: </i> @Html.DropDownList("questionGroup", "All") <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string)<br /><br /> 
+               <input type="submit" value="Search" />
+            </p>
+        } 
+        
+        <p>
+            @Html.ActionLink("Forum groups", "Index", "ForumGroup") | @Html.ActionLink("Create new question", "Create")
+        </p>
+        <table>
+            <tr>
+                <th>@Html.ActionLink("Date and Time", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Group", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Name", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>          
+                <th>@Html.ActionLink("Description", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Votes", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th> 
+                <th>@Html.ActionLink("Solved", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.DateTime)</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.QuestionGroups.QuestionGroupName)</a>                    
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.QuestionName)</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.QuestionDescription)</a>                    
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.Votes)</a>
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.Handled)</a>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) | 
+                    @Html.ActionLink("Delete", "Delete", new { id = item.QuestionId })
+                </td>              
+            </tr>              
+            }
+      </table>
+      <br />
+      <div>
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+     
+        @if (Model.HasPreviousPage)
+        {
+            @Html.ActionLink("<<", "Index", new { page = 1, sortQuestion = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            @Html.Raw(" ");
+            @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortQuestion = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        }
+        else
+        {
+            @:<<
+            @Html.Raw(" ");
+            @:< Prev
+        }
+     
+        @if (Model.HasNextPage)
+        {
+            @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortQuestion = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+            @Html.Raw(" ");
+            @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortQuestion = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
+        }
+        else
+        {
+            @:Next >
+            @Html.Raw(" ")
+            @:>>
+        }
+    </div>  
+</fieldset>
+
+  

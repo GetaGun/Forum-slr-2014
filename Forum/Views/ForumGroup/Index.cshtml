@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Forum.Models.QuestionGroups>
+
+@helper Truncate(string input, int length)
+    { 
+     if (input.Length <= length)
+     { 
+        @input 
+     }
+     else
+     { 
+        @input.Substring(0, length)<text>...</text> 
+     } 
+}
+@{
+    ViewBag.Title = "Index Forum Groups";
+}
+
+<fieldset>
+    <Legend>Forum Groups</Legend>
+        <br />
+        <table>
+            <tr>
+                <th>
+                    <b>Forum Group</b>
+                </th>
+                <th></th>
+            </tr>
+
+        @foreach (var item in Model) 
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuestionGroupName)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id=item.QuestionGroupId })
+                </td>
+            </tr>
+        }
+        </table>
+        <br />
+    @Html.ActionLink("New forum group", "Create", "ForumGroup") | @Html.ActionLink("Back", "Index", "Home")
+</fieldset>
