@@ -30,6 +30,13 @@
             @Html.TextAreaFor(q => q.QuestionDescription, new { @rows="10" })
             @Html.ValidationMessageFor(q => q.QuestionDescription)
         </div>
+	    <div class="editor-label">
+            <b>Question Keyword</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QuestionKeyword)
+            @Html.ValidationMessageFor(n => n.QuestionKeyword)
+        </div>
         <div class="editor-label">
             <b>Date and Time</b>
         </div>

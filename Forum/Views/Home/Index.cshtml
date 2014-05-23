@@ -100,4 +100,18 @@
     </div>  
 </fieldset>
 
-  
+
+<fieldset>
+    <legend>Tags</legend>
+       
+        @foreach (var keyword in Model)
+        {
+            string[] words = keyword.QuestionKeyword.Split();
+   
+            foreach (var word in words)
+            {
+                /*<a href="@word">*/<p># @word </p>/*</a>*/
+            }
+                
+        }    
+</fieldset>

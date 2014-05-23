@@ -33,6 +33,8 @@ namespace Forum.Models
         public string QuestionName { get; set; }
         [Required(ErrorMessage = "Question Description is required")]
         public string QuestionDescription { get; set; }
+	    [Required(ErrorMessage = "Question Keyword is required")]
+        public string QuestionKeyword { get; set; }
         [Required(ErrorMessage = "DateTime is required")]
         public System.DateTime DateTime { get; set; }
         public string Votes { get; set; }
