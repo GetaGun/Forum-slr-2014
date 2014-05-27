@@ -35,9 +35,23 @@ textarea {
     margin: 0.5em 0 0 0;
 }
 
-table, th, td
-{
-    border: 1px solid gray;
+table{
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+.title {
+    width: 800px;
+}
+
+th{
+    border: 2px solid black;
+}
+
+td {
+    border: 1px solid grey;
+    border-left: 2px solid black;
+    padding: 0 0.5em 0 0.5em;
 }
 
 a,
@@ -53,6 +67,10 @@ a:hover {
     text-decoration: underline;
 }
 
+.link {
+    font-weight: bold;
+    font-size: 1.2em;
+}
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error {
