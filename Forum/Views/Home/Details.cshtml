@@ -42,12 +42,6 @@
     <div class="display-field">
         @Html.DisplayFor(q => q.Votes)
     </div>
-    <div class="display-label">
-        <b>Handled</b>
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(q => q.Handled)
-    </div>
     <p>
         @Html.ActionLink("Answer this Question", "Create", "Message", new { id = Model.QuestionId }, null) | @Html.ActionLink("Back", "Index")
     </p>

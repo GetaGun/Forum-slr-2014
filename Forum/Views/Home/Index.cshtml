@@ -35,7 +35,6 @@
                 <th>@Html.ActionLink("Name", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>          
                 <th>@Html.ActionLink("Description", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Votes", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th> 
-                <th>@Html.ActionLink("Solved", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th></th>
             </tr>
 
@@ -56,9 +55,6 @@
                 </td>
                 <td>
                     <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.Votes)</a>
-                </td>
-                <td>
-                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.Handled)</a>
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) | 
@@ -99,7 +95,6 @@
         }
     </div>  
 </fieldset>
-
 
 <fieldset>
     <legend>Tags</legend>

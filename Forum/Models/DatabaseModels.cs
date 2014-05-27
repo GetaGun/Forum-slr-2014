@@ -38,7 +38,6 @@ namespace Forum.Models
         [Required(ErrorMessage = "DateTime is required")]
         public System.DateTime DateTime { get; set; }
         public string Votes { get; set; }
-        public string Handled { get; set; }
 
         public virtual List<Messages> Messages { get; set; }
         public virtual QuestionGroups QuestionGroups { get; set; }
