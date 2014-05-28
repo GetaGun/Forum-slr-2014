@@ -20,17 +20,18 @@
         @using (Html.BeginForm("Index", "Home", FormMethod.Get))
         {
             <p>
-               <i>Group: </i> @Html.DropDownList("questionGroup", "All") <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) <i>Search on: Name, Description and Tags</i><br /><br /> 
-               <input type="submit" value="Search" />
+               <i>Group: </i> @Html.DropDownList("questionGroup", "All") <input type="submit" value="Search" />
+               <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) 
+               <i>Search on: Name, Description and Tags</i><br /><br />    
             </p>
         } 
         
-        <p>
+        <p class="link">
             @Html.ActionLink("Forum groups", "Index", "ForumGroup") | @Html.ActionLink("Create new question", "Create")
         </p>
         <table>
             <tr>
-                <th>@Html.ActionLink("Date and Time", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Date", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Group", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Name", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>          
                 <th>@Html.ActionLink("Description", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
@@ -41,22 +42,22 @@
             @foreach (var item in Model)
             {
             <tr>
-                <td>
-                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.DateTime)</a>
+                <td class="date">
+                    @Html.DisplayFor(modelItem => item.DateTime)
                 </td>
-                <td>
+                <td class="group">
                     <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.QuestionGroups.QuestionGroupName)</a>                    
                 </td>
-                <td>
+                <td class="title">
                     <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.QuestionName)</a>
                 </td>
-                <td>
+                <td class="description">
                     <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.QuestionDescription)</a>                    
                 </td>
-                <td>
+                <td class="vote">
                     <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.Votes)</a>
                 </td>
-                <td>
+                <td class="delete">
                     @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) | 
                     @Html.ActionLink("Delete", "Delete", new { id = item.QuestionId })
                 </td>              
