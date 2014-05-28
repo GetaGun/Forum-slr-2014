@@ -18,6 +18,7 @@ namespace Forum.Models
         {
         }
         public DbSet<Questions> Questions { get; set; }
+        public DbSet<Votes> Votes { get; set; }
         public DbSet<QuestionGroups> QuestionGroups { get; set; }
         public DbSet<Messages> Messages { get; set; }
     }
@@ -37,10 +38,19 @@ namespace Forum.Models
         public string QuestionKeyword { get; set; }
         [Required(ErrorMessage = "DateTime is required")]
         public System.DateTime DateTime { get; set; }
-        public string Votes { get; set; }
 
         public virtual List<Messages> Messages { get; set; }
         public virtual QuestionGroups QuestionGroups { get; set; }
+        public virtual Votes Votes { get; set; }
+    }
+
+    [Table("Votes")]
+    public class Votes
+    {
+        [Key]
+        public int VoteId { get; set; }
+        public int QuestionId { get; set; }
+        public int UserId { get; set; }
     }
 
     [Table("QuestionGroups")]

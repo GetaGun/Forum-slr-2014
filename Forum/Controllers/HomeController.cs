@@ -72,13 +72,24 @@ namespace Forum.Controllers
 
         public ActionResult Details(int id = 0)
         {
+            ViewBag.QuestionId = id;
             Questions questions = db.Questions.Find(id);
-
+            
             if (questions == null)
             {
                 return HttpNotFound();
             }
             return View(questions);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details_Create_Vote(Votes Vote, int id = 0)
+        {
+            db.Votes.Add(Vote);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = id });
         }
 
         public ActionResult Create()

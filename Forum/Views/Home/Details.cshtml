@@ -36,16 +36,23 @@
     <div class="display-field">
         @Html.DisplayFor(q => q.DateTime)
     </div>
-    <div class="display-label">
-        <b>Votes</b>
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(q => q.Votes)
-    </div>
+    
+    @using (Html.BeginForm("Details_Create_Vote", "Home", new { id = ViewBag.QuestionId }))
+    {    
+        @Html.AntiForgeryToken()
+        <div>
+            <div class="editor-field">
+                @Html.Hidden("QuestionId", (object)ViewBag.QuestionId)
+            </div> 
+            <input type="submit" value="Vote" />
+        </div>
+    }
+    
     <p>
         @Html.ActionLink("Answer this Question", "Create", "Message", new { id = Model.QuestionId }, null) | @Html.ActionLink("Back", "Index")
     </p>
 </fieldset>
+
 @Html.Partial("~/Views/Message/_Index.cshtml", Model.Messages)
 
 
