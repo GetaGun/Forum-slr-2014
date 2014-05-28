@@ -41,7 +41,22 @@ table{
 }
 
 .title {
-    width: 800px;
+    width: 800px; /*this moment 815px*/
+}
+.date {
+    width: 100px; /*this moment 141px*/
+}
+.group {
+    width: 100px; /*this moment 75px*/
+}
+.description {
+    width: 0; /*this moment 260px*/
+}
+.vote {
+    width: 30px; /*this moment 41px*/
+}
+.delete {
+    width: 100px; /*this moment 88px*/
 }
 
 th{
