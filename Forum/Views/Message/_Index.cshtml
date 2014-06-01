@@ -6,17 +6,8 @@
 
 @foreach (var item in Model) 
 {
-    <div style="
-         background-color:#FDE075;
-         width: 99%;
-         height: auto;
-         padding: 0.5em;
-         float: left;
-         margin: 5px 10px 1px 0;
-         border: 1px solid #999;
-         word-wrap: break-word;
-    ">
-        <div style="float: right">
+    <div class="message_main">
+        <div class="message_float">
             @Html.ActionLink("Edit", "Edit", new { id=item.MessageId }) | @Html.ActionLink("Delete", "Delete", new { id=item.MessageId })
         </div>
         <div>
@@ -27,7 +18,7 @@
             @Html.DisplayFor(modelItem => item.MessageText)       
             <br /><br />
             <i>
-            @Html.DisplayFor(modelItem => item.DateTime)
+            @Html.DisplayFor(modelItem => item.Date)
             </i>
         </div>
     </div>

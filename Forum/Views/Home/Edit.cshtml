@@ -38,11 +38,11 @@
             @Html.ValidationMessageFor(n => n.QuestionKeyword)
         </div>
         <div class="editor-label">
-            <b>Date and Time</b>
+            <b>Date</b>
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(q => q.DateTime)
-            @Html.ValidationMessageFor(q => q.DateTime)
+            @Html.TextBoxFor(q => q.Date)
+            @Html.ValidationMessageFor(q => q.Date)
         </div>
         <br />
         <input type="submit" value="Edit" /> | @Html.ActionLink("Back", "Index")

@@ -1,0 +1,12 @@
+﻿@model Forum.Models.Questions
+@{
+    ViewBag.Title = "Read Description";
+}
+
+<fieldset>
+    <legend>Description</legend>
+    <br />
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QuestionDescription)
+    </div>
+</fieldset>

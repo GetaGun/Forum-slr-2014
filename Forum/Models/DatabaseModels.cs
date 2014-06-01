@@ -37,20 +37,11 @@ namespace Forum.Models
 	    [Required(ErrorMessage = "Question Keyword is required")]
         public string QuestionKeyword { get; set; }
         [Required(ErrorMessage = "DateTime is required")]
-        public System.DateTime DateTime { get; set; }
+        public System.DateTime Date { get; set; }
 
         public virtual List<Messages> Messages { get; set; }
-        public virtual QuestionGroups QuestionGroups { get; set; }
-        public virtual Votes Votes { get; set; }
-    }
-
-    [Table("Votes")]
-    public class Votes
-    {
-        [Key]
-        public int VoteId { get; set; }
-        public int QuestionId { get; set; }
-        public int UserId { get; set; }
+        public virtual List<Votes> Votes { get; set; }
+        public virtual QuestionGroups QuestionGroups { get; set; }        
     }
 
     [Table("QuestionGroups")]
@@ -64,6 +55,15 @@ namespace Forum.Models
         public virtual List<Questions> Questions { get; set; }
     }
 
+    [Table("Votes")]
+    public class Votes
+    {
+        [Key]
+        public int VoteId { get; set; }
+        public int QuestionId { get; set; }
+        public int UserId { get; set; }
+    }
+
     [Table("Messages")]
     public class Messages
     {
@@ -73,6 +73,6 @@ namespace Forum.Models
         [Required(ErrorMessage = "Message Text is required")]
         public string MessageText { get; set; }
         [Required(ErrorMessage = "DateTime is required")]
-        public System.DateTime DateTime { get; set; }
+        public System.DateTime Date { get; set; }
     }
 }

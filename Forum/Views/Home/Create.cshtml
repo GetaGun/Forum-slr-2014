@@ -40,11 +40,11 @@
             @Html.ValidationMessageFor(q => q.QuestionKeyword)
         </div>
         <div class="editor-label">
-            <b>Date and Time</b>
+            <b>Date</b>
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.DateTime, new { Value = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") })
-            @Html.ValidationMessageFor(q => q.DateTime)
+            @Html.TextBoxFor(model => model.Date, new { Value = System.DateTime.Now.ToString("dd-MM-yyyy") })
+            @Html.ValidationMessageFor(q => q.Date)
         </div><br />
         <input type="submit" value="Create" /> | @Html.ActionLink("Back", "Index")
     </div>

@@ -15,14 +15,17 @@
     ViewBag.Title = "Index Questions";
 }
 
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+
 <fieldset>
     <legend>Questions</legend>
         @using (Html.BeginForm("Index", "Home", FormMethod.Get))
         {
             <p>
-               <i>Group: </i> @Html.DropDownList("questionGroup", "All") <input type="submit" value="Search" />
-               <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) 
-               <i>Search on: Name, Description and Tags</i><br /><br />    
+               <i>Group: </i> @Html.DropDownList("questionGroup", "All") 
+               <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) <input type="submit" value="Search" />
+               <i>Search on: Name, Description and Tags</i> - <i>Sort on: Votes</i><br /><br />    
             </p>
         } 
         
@@ -43,19 +46,19 @@
             {
             <tr>
                 <td class="date">
-                    @Html.DisplayFor(modelItem => item.DateTime)
+                    @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td class="group">
-                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.QuestionGroups.QuestionGroupName)</a>                    
+                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Truncate(item.QuestionGroups.QuestionGroupName, 25)</a>                    
                 </td>
                 <td class="title">
-                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.QuestionName)</a>
+                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Truncate(item.QuestionName, 100)</a>
                 </td>
                 <td class="description">
-                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.QuestionDescription)</a>                    
+                    @Ajax.ActionLink("Read", "Read", new { id=item.QuestionId }, new AjaxOptions { UpdateTargetId = "result" })              
                 </td>
                 <td class="vote">
-                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Html.DisplayFor(modelItem => item.Votes)</a>
+                    @Html.DisplayFor(model => item.Votes.Count)
                 </td>
                 <td class="delete">
                     @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) | 
@@ -96,3 +99,5 @@
         }
     </div>  
 </fieldset>
+
+<div id="result"></div>

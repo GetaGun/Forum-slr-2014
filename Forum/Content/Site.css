@@ -12,10 +12,30 @@ header, footer, nav, section {
 
 /* Styles for basic forms
 -----------------------------------------------------------*/
+.title {
+    width: 800px; /*this moment 815px*/
+}
+.date {
+    width: 120px; /*this moment 141px*/
+}
+.group {
+    width: 100px; /*this moment 75px*/
+}
+.description {
+    width: 90px; /*this moment 260px*/    
+}
+.vote {
+    width: 35px; /*this moment 41px*/
+}
+.delete {
+    width: 100px; /*this moment 88px*/
+}
+
 fieldset {
-    border: 1px solid #ddd;
+    border: 1px solid Gray;
     padding: 0 1.4em 1.4em 1.4em;
     margin: 0 0 1.5em 0;
+    word-break: break-all;
 }
 
 legend {
@@ -23,8 +43,16 @@ legend {
     font-weight: bold;
 }
 
-textarea {
-    min-height: 75px;
+textarea,select
+{
+    border: 1px solid Black;
+    padding: 2px;
+    width: auto;
+}
+
+input {
+    border: 1px solid Black;
+    padding: 3px;
 }
 
 .editor-label {
@@ -38,35 +66,18 @@ textarea {
 table{
     border: 2px solid black;
     border-collapse: collapse;
-}
-
-.title {
-    width: 800px; /*this moment 815px*/
-}
-.date {
-    width: 100px; /*this moment 141px*/
-}
-.group {
-    width: 100px; /*this moment 75px*/
-}
-.description {
-    width: 0; /*this moment 260px*/
-}
-.vote {
-    width: 30px; /*this moment 41px*/
-}
-.delete {
-    width: 100px; /*this moment 88px*/
+    width: 100%;
 }
 
 th{
-    border: 2px solid black;
+    border: 1px solid black;   
 }
 
 td {
-    border: 1px solid grey;
-    border-left: 2px solid black;
-    padding: 0 0.5em 0 0.5em;
+    border: 1px solid black;
+    border-left: 1px solid black;
+    text-align: center;
+    padding: 3px;
 }
 
 a,
@@ -84,8 +95,26 @@ a:hover {
 
 .link {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.0em;
 }
+
+/* Styles for the messages
+-----------------------------------------------------------*/
+.message_main {
+    background-color:#FDE075;
+    width: 99%;
+    height: auto;
+    padding: 0.5em;
+    float: left;
+    margin: 5px 10px 1px 0;
+    border: 1px solid #999;
+    word-wrap: break-word;
+}
+
+.message_float {
+    float: right;
+}
+
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error {

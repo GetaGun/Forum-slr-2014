@@ -6,48 +6,37 @@
 <fieldset>
     <legend>Questions Details</legend>
     <br />
-    <div class="display-label">
-         <b>Question Groupname</b>
+    <div class="display-field">
+       <b>Name: </b>@Html.DisplayFor(q => q.QuestionName)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(q => q.QuestionGroups.QuestionGroupName)
-    </div>
-    <div class="display-label">
-         <b>Question Name</b>
+        <b>Group: </b>@Html.DisplayFor(q => q.QuestionGroups.QuestionGroupName)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(q => q.QuestionName)
+        <b>Keyword: </b>@Html.DisplayFor(q => q.QuestionKeyword)
     </div>
-    <div class="display-label">
-         <b>Question Description</b>
+    <div class="display-field">              
+        <b>Users Votes: </b>@ViewBag.VoteCount
     </div>
+    <br />
     <div class="display-field">
         @Html.DisplayFor(q => q.QuestionDescription)
     </div>
-    <div class="display-label">
-         <b>Question Keyword</b>
-    </div>
+    <br />
     <div class="display-field">
-        @Html.DisplayFor(q => q.QuestionKeyword)
+        <i>@Html.DisplayFor(q => q.Date)</i>
     </div>
-    <div class="display-label">
-         <b>Date and Time</b>
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(q => q.DateTime)
-    </div>
-    
+    <br />
     @using (Html.BeginForm("Details_Create_Vote", "Home", new { id = ViewBag.QuestionId }))
     {    
         @Html.AntiForgeryToken()
         <div>
             <div class="editor-field">
                 @Html.Hidden("QuestionId", (object)ViewBag.QuestionId)
-            </div> 
-            <input type="submit" value="Vote" />
+            </div>
+            <input type="submit" value="Vote" />            
         </div>
-    }
-    
+    }    
     <p>
         @Html.ActionLink("Answer this Question", "Create", "Message", new { id = Model.QuestionId }, null) | @Html.ActionLink("Back", "Index")
     </p>

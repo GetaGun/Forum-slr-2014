@@ -21,11 +21,11 @@
             @Html.ValidationMessageFor(m => m.MessageText)
         </div>
         <div class="editor-label">
-            <b>Date and Time</b>
+            <b>Date</b>
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(m => m.DateTime, new { Value = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") })
-            @Html.ValidationMessageFor(m => m.DateTime)
+            @Html.TextBoxFor(m => m.Date, new { Value = System.DateTime.Now.ToString("dd-MM-yyyy") })
+            @Html.ValidationMessageFor(m => m.Date)
         </div><br />
         <input type="submit" value="Create" /> | @Html.ActionLink("Back", "Details", "Home", new { id = ViewBag.QuestionId }, null)
     </div>

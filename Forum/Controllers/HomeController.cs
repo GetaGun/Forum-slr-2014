@@ -18,7 +18,7 @@ namespace Forum.Controllers
         {
             ViewBag.CurrentSort = sortQuestion;
             ViewBag.MainParm = String.IsNullOrEmpty(sortQuestion) ? "name desc" : "";
-            ViewBag.SubmainParm = sortQuestion == "date" ? "date desc" : "date";
+            ViewBag.SubmainParm = sortQuestion == "vote" ? "vote desc" : "vote";
 
             if (searchString != null)
             {
@@ -42,16 +42,16 @@ namespace Forum.Controllers
             switch (sortQuestion)
             {
                 case "name desc":
-                    questions = questions.OrderByDescending(q => q.QuestionName);
+                    questions = questions.OrderByDescending(q => q.Votes.Count);
                     break;
-                case "date":
-                    questions = questions.OrderBy(q => q.DateTime);
+                case "vote":
+                    questions = questions.OrderBy(q => q.Votes.Count);
                     break;
-                case "date desc":
-                    questions = questions.OrderByDescending(q => q.DateTime);
+                case "vote desc":
+                    questions = questions.OrderByDescending(q => q.Votes.Count);
                     break;
                 default:
-                    questions = questions.OrderBy(q => q.QuestionName);
+                    questions = questions.OrderBy(q => q.Votes.Count);
                     break;
             }
 
@@ -70,21 +70,35 @@ namespace Forum.Controllers
             return View(questions.ToPagedList(PageNumber, PageSize));
         }
 
-        public ActionResult Details(int id = 0)
+        public ActionResult read(int id = 0)
         {
-            ViewBag.QuestionId = id;
-            Questions questions = db.Questions.Find(id);
-            
-            if (questions == null)
+            Questions Question = db.Questions.Find(id);
+
+            if (Question == null)
             {
                 return HttpNotFound();
             }
-            return View(questions);
+
+            return View(Question);
+        }
+
+        public ActionResult Details(int id = 0)
+        {
+            ViewBag.QuestionId = id;
+            ViewBag.VoteCount = db.Votes.Where(v => v.QuestionId == id).Count();
+            Questions Question = db.Questions.Find(id);                      
+
+            if (Question == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(Question);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Details_Create_Vote(Votes Vote, int id = 0)
+        public ActionResult Details_Create_Vote(Votes Vote, Questions Question, int id = 0)
         {
             db.Votes.Add(Vote);
             db.SaveChanges();
