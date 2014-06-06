@@ -11,6 +11,7 @@ using System.ComponentModel;
 
 namespace Forum.Models
 {
+   //test
     public class DatabaseContext : DbContext
     {
         public DatabaseContext()
