@@ -21,6 +21,7 @@ namespace Forum.Models
         public DbSet<Votes> Votes { get; set; }
         public DbSet<QuestionGroups> QuestionGroups { get; set; }
         public DbSet<Messages> Messages { get; set; }
+        public DbSet<UserProfiles> UserProfiles { get; set; }
     }
     
     [Table("Questions")]
@@ -74,5 +75,66 @@ namespace Forum.Models
         public string MessageText { get; set; }
         [Required(ErrorMessage = "DateTime is required")]
         public System.DateTime Date { get; set; }
+    }
+
+    [Table("UserProfiles")]
+    public class UserProfiles
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+    }
+
+    public class LocalPasswordModel
+    {
+        [Required(ErrorMessage = "Current password is required")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
+        public string OldPassword { get; set; }
+
+        [Required(ErrorMessage = "New password is required")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    public class LoginModel
+    {
+        [Required(ErrorMessage = "User name is required")]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+    }
+
+    public class RegisterModel
+    {
+        [Required(ErrorMessage = "User name is required")]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
     }
 }

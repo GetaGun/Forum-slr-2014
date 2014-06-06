@@ -1,0 +1,35 @@
+﻿@model Forum.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Registration</legend>
+        <ul>
+            <li style="margin-left: -40px;">
+                <b>User name</b><br />
+                @Html.TextBoxFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName)
+            </li>
+            <li style="margin-left: -40px; margin-top: 5px;">
+                <b>Password</b><br />
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </li>
+            <li style="margin-left: -40px; margin-top: 5px;">
+                <b>Confirm password</b><br />
+                @Html.PasswordFor(m => m.ConfirmPassword)
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            </li>
+        </ul>
+        <input type="submit" value="Register" /> | @Html.ActionLink("Back", "Index", "Home")
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

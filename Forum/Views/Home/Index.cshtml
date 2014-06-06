@@ -20,15 +20,19 @@
 
 <fieldset>
     <legend>Questions</legend>
-        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-        {
-            <p>
-               <i>Group: </i> @Html.DropDownList("questionGroup", "All") 
-               <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) <input type="submit" value="Search" />
-               <i>Search on: Name, Description and Tags</i> - <i>Sort on: Votes</i><br /><br />    
-            </p>
-        } 
-        
+        <div class="login_main">
+            <div class="login_float">
+                @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
+            </div>        
+                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                {
+                    <p>
+                        <i>Group: </i> @Html.DropDownList("questionGroup", "All") 
+                        <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) <input type="submit" value="Search" />
+                        <i>Search on: Name, Description and Tags</i> - <i>Sort on: Votes</i><br /><br />    
+                    </p>            
+                } 
+        </div>
         <p class="link">
             @Html.ActionLink("Forum groups", "Index", "ForumGroup") | @Html.ActionLink("Create new question", "Create")
         </p>

@@ -39,6 +39,16 @@ namespace Forum.Controllers
                                        || q.QuestionDescription.ToUpper().Contains(searchString.ToUpper()));
             }
 
+            var questionGroupLst = new List<string>();
+            var questionGroupsQry = from q in db.Questions select q.QuestionGroups.QuestionGroupName;
+            questionGroupLst.AddRange(questionGroupsQry.Distinct());
+            ViewBag.questionGroup = new SelectList(questionGroupLst);
+
+            if (!String.IsNullOrEmpty(questionGroup))
+            {
+                questions = questions.Where(q => q.QuestionGroups.QuestionGroupName == questionGroup);
+            }
+
             switch (sortQuestion)
             {
                 case "name desc":
@@ -54,17 +64,7 @@ namespace Forum.Controllers
                     questions = questions.OrderBy(q => q.Votes.Count);
                     break;
             }
-
-            var questionGroupLst = new List<string>();
-            var questionGroupsQry = from q in db.Questions select q.QuestionGroups.QuestionGroupName;
-            questionGroupLst.AddRange(questionGroupsQry.Distinct());
-            ViewBag.questionGroup = new SelectList(questionGroupLst);
-
-            if (!String.IsNullOrEmpty(questionGroup))
-            {
-                questions = questions.Where(q => q.QuestionGroups.QuestionGroupName == questionGroup);
-            }
-
+            
             int PageSize = 50;
             int PageNumber = (page ?? 1);
             return View(questions.ToPagedList(PageNumber, PageSize));
