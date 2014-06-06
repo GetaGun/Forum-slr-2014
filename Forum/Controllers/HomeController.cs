@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using Forum.Models;
 using PagedList;
+using WebMatrix.WebData;
+using Forum.Filters;
 
 namespace Forum.Controllers
 {
@@ -82,8 +84,10 @@ namespace Forum.Controllers
             return View(Question);
         }
 
+        [InitializeSimpleMembership] 
         public ActionResult Details(int id = 0)
         {
+            ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);
             ViewBag.QuestionId = id;
             ViewBag.VoteCount = db.Votes.Where(v => v.QuestionId == id).Count();
             Questions Question = db.Questions.Find(id);                      
