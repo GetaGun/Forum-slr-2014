@@ -63,6 +63,20 @@
                 </td>
                 <td class="vote">
                     @Html.DisplayFor(model => item.Votes.Count)
+
+                    @using (Html.BeginForm("Details_Create_Vote", "Home"))
+                    {    
+                        @Html.AntiForgeryToken()
+                        <div>
+                            <div class="editor-field">
+                                @Html.Hidden("UserId", (object)ViewBag.UserId)
+                            </div>
+                            <div class="editor-field">
+                                @Html.Hidden("QuestionId", (object)item.QuestionId)
+                            </div>
+                            <input type="submit" value="Vote" />            
+                        </div>
+                    }    
                 </td>
                 <td class="delete">
                     @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) | 

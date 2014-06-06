@@ -27,19 +27,7 @@
         <i>@Html.DisplayFor(q => q.Date)</i>
     </div>
     <br />
-    @using (Html.BeginForm("Details_Create_Vote", "Home", new { id = ViewBag.QuestionId }))
-    {    
-        @Html.AntiForgeryToken()
-        <div>
-            <div class="editor-field">
-                @Html.Hidden("UserId", (object)ViewBag.UserId)
-            </div>
-            <div class="editor-field">
-                @Html.Hidden("QuestionId", (object)ViewBag.QuestionId)
-            </div>
-            <input type="submit" value="Vote" />            
-        </div>
-    }    
+   
     <p>
         @Html.ActionLink("Answer this Question", "Create", "Message", new { id = Model.QuestionId }, null) | @Html.ActionLink("Back", "Index")
     </p>

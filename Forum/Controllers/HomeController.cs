@@ -16,8 +16,10 @@ namespace Forum.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
+        [InitializeSimpleMembership]
         public ViewResult Index(string sortQuestion, string currentFilter, string questionGroup, string searchString, int? page)
         {
+            ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);
             ViewBag.CurrentSort = sortQuestion;
             ViewBag.MainParm = String.IsNullOrEmpty(sortQuestion) ? "name desc" : "";
             ViewBag.SubmainParm = sortQuestion == "vote" ? "vote desc" : "vote";
@@ -102,12 +104,12 @@ namespace Forum.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Details_Create_Vote(Votes Vote, Questions Question, int id = 0)
+        public ActionResult Details_Create_Vote(Votes Vote, Questions Question)
         {
             db.Votes.Add(Vote);
             db.SaveChanges();
 
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("Index");
         }
 
         public ActionResult Create()
