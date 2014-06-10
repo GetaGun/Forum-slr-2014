@@ -16,9 +16,7 @@ namespace Forum.Migrations
                         QuestionName = c.String(nullable: false),
                         QuestionDescription = c.String(nullable: false),
                         QuestionKeyword = c.String(nullable: false),
-                        DateTime = c.DateTime(nullable: false),
-                        Votes = c.String(),
-                        Handled = c.String(),
+                        Date = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.QuestionId)
                 .ForeignKey("dbo.QuestionGroups", t => t.QuestionGroupId, cascadeDelete: true)
@@ -30,10 +28,34 @@ namespace Forum.Migrations
                     {
                         MessageId = c.Int(nullable: false, identity: true),
                         QuestionId = c.Int(nullable: false),
+                        UserId = c.Int(nullable: false),
                         MessageText = c.String(nullable: false),
-                        DateTime = c.DateTime(nullable: false),
+                        Date = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.MessageId)
+                .ForeignKey("dbo.UserProfile", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Questions", t => t.QuestionId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.QuestionId);
+            
+            CreateTable(
+                "dbo.UserProfile",
+                c => new
+                    {
+                        UserId = c.Int(nullable: false, identity: true),
+                        UserName = c.String(),
+                    })
+                .PrimaryKey(t => t.UserId);
+            
+            CreateTable(
+                "dbo.Votes",
+                c => new
+                    {
+                        VoteId = c.Int(nullable: false, identity: true),
+                        QuestionId = c.Int(nullable: false),
+                        UserId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.VoteId)
                 .ForeignKey("dbo.Questions", t => t.QuestionId, cascadeDelete: true)
                 .Index(t => t.QuestionId);
             
@@ -50,11 +72,17 @@ namespace Forum.Migrations
         
         public override void Down()
         {
+            DropIndex("dbo.Votes", new[] { "QuestionId" });
             DropIndex("dbo.Messages", new[] { "QuestionId" });
+            DropIndex("dbo.Messages", new[] { "UserId" });
             DropIndex("dbo.Questions", new[] { "QuestionGroupId" });
+            DropForeignKey("dbo.Votes", "QuestionId", "dbo.Questions");
             DropForeignKey("dbo.Messages", "QuestionId", "dbo.Questions");
+            DropForeignKey("dbo.Messages", "UserId", "dbo.UserProfile");
             DropForeignKey("dbo.Questions", "QuestionGroupId", "dbo.QuestionGroups");
             DropTable("dbo.QuestionGroups");
+            DropTable("dbo.Votes");
+            DropTable("dbo.UserProfile");
             DropTable("dbo.Messages");
             DropTable("dbo.Questions");
         }

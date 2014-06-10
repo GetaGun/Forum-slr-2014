@@ -6,27 +6,39 @@
 <fieldset>
     <legend>Questions Details</legend>
     <br />
-    <div class="display-field">
-       <b>Name: </b>@Html.DisplayFor(q => q.QuestionName)
+    <div class="details_main">
+        <div class="details_float">
+            @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
+        </div>
+        <div class="display-field">
+            <b>Name: </b>@Html.DisplayFor(q => q.QuestionName)
+        </div>
+        <div class="display-field">
+            <b>Group: </b>@Html.DisplayFor(q => q.QuestionGroups.QuestionGroupName)
+        </div>
+        <div class="display-field">
+            <b>Keyword: </b>@Html.DisplayFor(q => q.QuestionKeyword)
+        </div>
+        <div class="display-field">
+            <b>Users Votes: </b>@ViewBag.VoteCount
+        </div>
+        <br />
+        <div class="display-field">
+            @Html.DisplayFor(q => q.QuestionDescription)
+        </div>
+        <br />
+        <div class="display-field">
+            <i>@Html.DisplayFor(q => q.Date)</i>
+        </div>
+        @if (Request.IsAuthenticated)
+        {
+            <p>@Html.ActionLink("Reply", "Create", "Message", new { id = Model.QuestionId }, null) | @Html.ActionLink("Back", "Index")</p>
+        }
+        else
+        {
+            <p>Login to Reply | @Html.ActionLink("Back", "Index")</p>
+        }  
     </div>
-    <div class="display-field">
-        <b>Group: </b>@Html.DisplayFor(q => q.QuestionGroups.QuestionGroupName)
-    </div>
-    <div class="display-field">
-        <b>Keyword: </b>@Html.DisplayFor(q => q.QuestionKeyword)
-    </div>
-    <div class="display-field">              
-        <b>Users Votes: </b>@ViewBag.VoteCount
-    </div>
-    <br />
-    <div class="display-field">
-        @Html.DisplayFor(q => q.QuestionDescription)
-    </div>
-    <br />
-    <div class="display-field">
-        <i>@Html.DisplayFor(q => q.Date)</i>
-    </div><br />
-    @Html.ActionLink("Reply", "Create", "Message", new { id = Model.QuestionId }, null) | @Html.ActionLink("Back", "Index")
 </fieldset>
 
 @Html.Partial("~/Views/Message/_Index.cshtml", Model.Messages)

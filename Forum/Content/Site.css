@@ -133,6 +133,17 @@ a:hover {
     float: right;
 }
 
+.details_main {
+    width: 100%;
+    height: auto;
+    float: left;
+}
+.details_float {
+    margin-top: -16px;
+    margin-right: 4px;
+    float: right;
+}
+
 .message-success {
     margin-bottom: -4px;
 }
