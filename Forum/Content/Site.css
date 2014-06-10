@@ -50,11 +50,6 @@ textarea,select
     width: auto;
 }
 
-input {
-    border: 1px solid Black;
-    padding: 3px;
-}
-
 .editor-label {
     margin: 1em 0 0 0;
 }
@@ -100,6 +95,21 @@ a:hover {
 .link {
     font-weight: bold;
     font-size: 1.0em;
+}
+
+.button {
+    background-color: #eeeeee;
+    border-radius: 3px;
+    border: 2px outset #cccccc;
+    font-weight: bold;
+    width: 60px;
+    margin: 0;
+    padding: 5px 0 5px 0;
+}
+
+.button:hover {
+    background-color: #cccccc;
+    border: 2px inset #eeeeee;
 }
 
 /* Styles for the messages

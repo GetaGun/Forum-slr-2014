@@ -28,7 +28,7 @@
                 {
                     <p>
                         <i>Group: </i> @Html.DropDownList("questionGroup", "All") 
-                        <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) <input type="submit" value="Search" />
+                        <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) <input type="submit" value="Search" class="button" />
                         <i>Search on: Name, Description and Tags</i> - <i>Sort on: Votes</i><br /><br />    
                     </p>            
                 } 
@@ -92,7 +92,7 @@
                                         <div class="editor-field">
                                             @Html.Hidden("QuestionId", (object)item.QuestionId)
                                         </div>
-                                        <input type="submit" value="Vote!" style="margin-top: -10px; margin-bottom: 2px; width: 40px; height: 25px;">
+                                        <input type="submit" value="Vote!" class="button">
                                     </div>
                                 }
                             }
