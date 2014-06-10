@@ -9,6 +9,10 @@ header, footer, nav, section {
     display: block;
 }
 
+tr.hover td
+{ 
+    background-color:#99CCFF; 
+}
 
 /* Styles for basic forms
 -----------------------------------------------------------*/
@@ -16,16 +20,16 @@ header, footer, nav, section {
     width: 800px; /*this moment 815px*/
 }
 .date {
-    width: 120px; /*this moment 141px*/
+    width: 130px; /*this moment 141px*/
 }
 .group {
     width: 100px; /*this moment 75px*/
 }
 .description {
-    width: 90px; /*this moment 260px*/    
+    width: 90px; /*this moment 260px*/
 }
 .vote {
-    width: 35px; /*this moment 41px*/
+    width: 50px; /*this moment 41px*/
 }
 .delete {
     width: 100px; /*this moment 88px*/
