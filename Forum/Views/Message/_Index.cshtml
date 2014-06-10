@@ -11,7 +11,7 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.MessageId }) | @Html.ActionLink("Delete", "Delete", new { id=item.MessageId })
         </div>
         <div>
-            <b>UserName</b>
+            <b>@Html.DisplayFor(modelItem => item.UserProfile.UserName)</b>
         </div>
         <br />
         <div>

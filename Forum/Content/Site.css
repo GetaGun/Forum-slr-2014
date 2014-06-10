@@ -93,13 +93,27 @@ a:active {
 }
 
 a:hover {
-    color: red;
+    color: blue;
     text-decoration: underline;
 }
 
 .link {
     font-weight: bold;
     font-size: 1.0em;
+}
+
+.button {
+    background-color: #eeeeee;
+    border-radius: 3px;
+    width: 40px;
+    padding: 5px 0 5px 0;
+    margin-right: 2px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #cccccc;    
 }
 
 /* Styles for the messages

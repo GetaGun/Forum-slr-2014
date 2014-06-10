@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Forum.Models;
+using WebMatrix.WebData;
 
 namespace Forum.Controllers
 {
@@ -21,6 +22,7 @@ namespace Forum.Controllers
 
         public ActionResult Create(int id = 0)
         {
+            ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);  
             ViewBag.QuestionId = id;
             return View();
         }

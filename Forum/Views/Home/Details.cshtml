@@ -25,12 +25,8 @@
     <br />
     <div class="display-field">
         <i>@Html.DisplayFor(q => q.Date)</i>
-    </div>
-    <br />
-   
-    <p>
-        @Html.ActionLink("Answer this Question", "Create", "Message", new { id = Model.QuestionId }, null) | @Html.ActionLink("Back", "Index")
-    </p>
+    </div><br />
+    @Html.ActionLink("Reply", "Create", "Message", new { id = Model.QuestionId }, null) | @Html.ActionLink("Back", "Index")
 </fieldset>
 
 @Html.Partial("~/Views/Message/_Index.cshtml", Model.Messages)

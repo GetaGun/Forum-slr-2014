@@ -21,7 +21,7 @@ namespace Forum.Models
         public DbSet<Votes> Votes { get; set; }
         public DbSet<QuestionGroups> QuestionGroups { get; set; }
         public DbSet<Messages> Messages { get; set; }
-        public DbSet<UserProfiles> UserProfiles { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
     }
     
     [Table("Questions")]
@@ -39,10 +39,10 @@ namespace Forum.Models
         public string QuestionKeyword { get; set; }
         [Required(ErrorMessage = "DateTime is required")]
         public System.DateTime Date { get; set; }
-
+        
         public virtual List<Messages> Messages { get; set; }
         public virtual List<Votes> Votes { get; set; }
-        public virtual QuestionGroups QuestionGroups { get; set; }        
+        public virtual QuestionGroups QuestionGroups { get; set; }
     }
 
     [Table("QuestionGroups")]
@@ -71,14 +71,17 @@ namespace Forum.Models
         [Key]
         public int MessageId { get; set; }
         public int QuestionId { get; set; }
+        public int UserId { get; set; }
         [Required(ErrorMessage = "Message Text is required")]
         public string MessageText { get; set; }
         [Required(ErrorMessage = "DateTime is required")]
         public System.DateTime Date { get; set; }
+
+        public virtual UserProfile UserProfile { get; set; }
     }
 
-    [Table("UserProfiles")]
-    public class UserProfiles
+    [Table("UserProfile")]
+    public class UserProfile
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]

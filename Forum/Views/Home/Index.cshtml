@@ -33,58 +33,90 @@
                     </p>            
                 } 
         </div>
-        <p class="link">
-            @Html.ActionLink("Forum groups", "Index", "ForumGroup") | @Html.ActionLink("Create new question", "Create")
-        </p>
+        @if (Request.IsAuthenticated)
+        {
+            <p class="link">
+                @Html.ActionLink("Forum groups", "Index", "ForumGroup") | @Html.ActionLink("Create new question", "Create")
+            </p>
+        }
+        else
+        {
+            <p>
+                Login to create a new Question or Group!
+            </p>
+        }
         <table>
             <tr>
                 <th>@Html.ActionLink("Date", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Group", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
-                <th>@Html.ActionLink("Name", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>          
+                <th>@Html.ActionLink("Name", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Description", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
-                <th>@Html.ActionLink("Votes", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th> 
-                <th></th>
+                <th>@Html.ActionLink("Votes", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                @if (Request.IsAuthenticated)
+                {
+                    <th></th>
+                }
             </tr>
 
             @foreach (var item in Model)
             {
-            <tr>
-                <td class="date">
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td class="group">
-                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Truncate(item.QuestionGroups.QuestionGroupName, 25)</a>                    
-                </td>
-                <td class="title">
-                    <a href="@Url.Action("Details", new { id=item.QuestionId})">@Truncate(item.QuestionName, 100)</a>
-                </td>
-                <td class="description">
-                    @Ajax.ActionLink("Read", "Read", new { id=item.QuestionId }, new AjaxOptions { UpdateTargetId = "result" })              
-                </td>
-                <td class="vote">
-                    
-
-                    @using (Html.BeginForm("Details_Create_Vote", "Home"))
-                    {    
-                        @Html.AntiForgeryToken()
-                        <div>
-                            <div class="editor-field">
-                                @Html.Hidden("UserId", (object)ViewBag.UserId)
-                            </div>
-                            <div class="editor-field">
-                                @Html.Hidden("QuestionId", (object)item.QuestionId)
-                            </div>
-                            <input type="submit" value="@Html.DisplayFor(model => item.Votes.Count)" />            
-                        </div>
-                    }    
-                </td>
-                <td class="delete">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) | 
-                    @Html.ActionLink("Delete", "Delete", new { id = item.QuestionId })
-                </td>              
-            </tr>              
+                <tr>
+                    <td class="date">
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td class="group">
+                        <a href="@Url.Action("Details", new { id=item.QuestionId})">@Truncate(item.QuestionGroups.QuestionGroupName, 25)</a>
+                    </td>
+                    <td class="title">
+                        <a href="@Url.Action("Details", new { id=item.QuestionId})">@Truncate(item.QuestionName, 100)</a>
+                    </td>
+                    <td class="description">
+                        @Ajax.ActionLink("Read", "Read", new { id = item.QuestionId }, new AjaxOptions { UpdateTargetId = "result" })
+                    </td>
+                    <td class="vote">
+                        @{
+                            var UserId = ViewBag.UserId;
+                            bool exists = item.Votes.Where(v => v.QuestionId == item.QuestionId && v.UserId == UserId).Any();
+                        }
+                        @if (exists == false)
+                        {
+                            if (Request.IsAuthenticated)
+                            {
+                                using (Html.BeginForm("Details_Create_Vote", "Home"))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div>
+                                        <div class="editor-field">
+                                            @Html.Hidden("UserId", (object)ViewBag.UserId)
+                                        </div>
+                                        <div class="editor-field">
+                                            @Html.Hidden("QuestionId", (object)item.QuestionId)
+                                        </div>
+                                        <input type="submit" value="Vote!" class="button">
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(model => item.Votes.Count)
+                            }
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(model => item.Votes.Count)
+                        }
+                    </td>
+                    @if (Request.IsAuthenticated)
+                    {
+                        <td class="delete">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.QuestionId })
+                        </td>
+                    }
+                </tr>
             }
-      </table>
+        </table>
+
       <br />
       <div>
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)

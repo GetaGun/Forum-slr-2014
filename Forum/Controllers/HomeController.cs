@@ -18,11 +18,8 @@ namespace Forum.Controllers
 
         [InitializeSimpleMembership]
         public ViewResult Index(string sortQuestion, string currentFilter, string questionGroup, string searchString, int? page)
-        {
-            ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);
-            ViewBag.CurrentSort = sortQuestion;
-            ViewBag.MainParm = String.IsNullOrEmpty(sortQuestion) ? "name desc" : "";
-            ViewBag.SubmainParm = sortQuestion == "vote" ? "vote desc" : "vote";
+        {   
+            ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);                    
 
             if (searchString != null)
             {
@@ -35,7 +32,7 @@ namespace Forum.Controllers
             ViewBag.CurrentFilter = searchString;
 
             var questions = from q in db.Questions select q;
-
+            
             if (!String.IsNullOrEmpty(searchString))
             {
                 questions = questions.Where(q => q.QuestionName.ToUpper().Contains(searchString.ToUpper())
@@ -52,6 +49,10 @@ namespace Forum.Controllers
             {
                 questions = questions.Where(q => q.QuestionGroups.QuestionGroupName == questionGroup);
             }
+
+            ViewBag.CurrentSort = sortQuestion;
+            ViewBag.MainParm = String.IsNullOrEmpty(sortQuestion) ? "name desc" : "";
+            ViewBag.SubmainParm = sortQuestion == "vote" ? "vote desc" : "vote";
 
             switch (sortQuestion)
             {
@@ -73,7 +74,7 @@ namespace Forum.Controllers
             int PageNumber = (page ?? 1);
             return View(questions.ToPagedList(PageNumber, PageSize));
         }
-
+        
         public ActionResult read(int id = 0)
         {
             Questions Question = db.Questions.Find(id);
@@ -85,12 +86,9 @@ namespace Forum.Controllers
 
             return View(Question);
         }
-
-        [InitializeSimpleMembership] 
+        
         public ActionResult Details(int id = 0)
-        {
-            ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);
-            ViewBag.QuestionId = id;
+        {            
             ViewBag.VoteCount = db.Votes.Where(v => v.QuestionId == id).Count();
             Questions Question = db.Questions.Find(id);                      
 
