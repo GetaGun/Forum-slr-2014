@@ -62,7 +62,7 @@
                     @Ajax.ActionLink("Read", "Read", new { id=item.QuestionId }, new AjaxOptions { UpdateTargetId = "result" })              
                 </td>
                 <td class="vote">
-                    @Html.DisplayFor(model => item.Votes.Count)
+                    
 
                     @using (Html.BeginForm("Details_Create_Vote", "Home"))
                     {    
@@ -74,7 +74,7 @@
                             <div class="editor-field">
                                 @Html.Hidden("QuestionId", (object)item.QuestionId)
                             </div>
-                            <input type="submit" value="Vote" />            
+                            <input type="submit" value="@Html.DisplayFor(model => item.Votes.Count)" />            
                         </div>
                     }    
                 </td>
