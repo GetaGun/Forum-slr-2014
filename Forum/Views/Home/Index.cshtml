@@ -45,7 +45,7 @@
                 Login to create a new Question or Group!
             </p>
         }
-        <table id="select">
+        <table>
             <tr>
                 <th>@Html.ActionLink("Date", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Group", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
@@ -86,9 +86,13 @@
                                 {
                                     @Html.AntiForgeryToken()
                                     <div>
-                                        @Html.Hidden("UserId", (object)ViewBag.UserId)
-                                        @Html.Hidden("QuestionId", (object)item.QuestionId)
-                                        <a href="@Url.Action("Index")" data-form-method="post">Vote!</a>
+                                        <div class="editor-field">
+                                            @Html.Hidden("UserId", (object)ViewBag.UserId)
+                                        </div>
+                                        <div class="editor-field">
+                                            @Html.Hidden("QuestionId", (object)item.QuestionId)
+                                        </div>
+                                        <input type="submit" value="Vote!" style="margin-top: -10px; margin-bottom: 2px; width: 40px; height: 25px;">
                                     </div>
                                 }
                             }
@@ -112,6 +116,7 @@
                 </tr>
             }
         </table>
+
       <br />
       <div>
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
@@ -146,28 +151,3 @@
 </fieldset>
 
 <div id="result"></div>
-
-<script type="text/javascript">
-    $("a[data-form-method='post']").click(function (event) {
-        event.preventDefault();
-        var element = $(this);
-        var action = element.attr("href");
-        element.closest("form").each(function () {
-            var form = $(this);
-            form.attr("index", action);
-            form.submit();
-        });
-    });
-    
-    jQuery("#select tr")
-    .on("mouseenter",
-        function () {
-            jQuery(this).addClass("hover");
-        }
-    )
-    .on("mouseleave",
-        function () {
-            jQuery(this).removeClass("hover");
-        }
-);
-</script>
