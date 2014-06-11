@@ -71,8 +71,8 @@
                 </td>
                 <td class="vote" onclick="onRowClick(@item.QuestionId)">
                     @{
-            var UserId = ViewBag.UserId;
-            bool exists = item.Votes.Where(v => v.QuestionId == item.QuestionId && v.UserId == UserId).Any();
+                        var UserId = ViewBag.UserId;
+                        bool exists = item.Votes.Where(v => v.QuestionId == item.QuestionId && v.UserId == UserId).Any();
                     }
                     @if (exists == false)
                     {
@@ -158,7 +158,7 @@
 
     function onRowClick(id) {
         $.ajax({
-            url: "Home/Read/" + id,
+            url: "Home/_Read/" + id,
             type: "Get",
             success: (function (data) {
                 $("#result").html(data);

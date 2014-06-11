@@ -271,7 +271,7 @@
     <Content Include="Views\ForumGroup\Delete.cshtml" />
     <Content Include="Views\Message\_Index.cshtml" />
     <Content Include="Views\Message\Create.cshtml" />
-    <Content Include="Views\Home\Read.cshtml" />
+    <Content Include="Views\Home\_Read.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
