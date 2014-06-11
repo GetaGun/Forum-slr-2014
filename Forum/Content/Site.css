@@ -9,6 +9,11 @@ header, footer, nav, section {
     display: block;
 }
 
+tr.hover td
+{ 
+    background-color:#99CCFF; 
+}
+
 /* Styles for basic forms
 -----------------------------------------------------------*/
 .title {
@@ -100,7 +105,6 @@ a:hover {
     font-weight: bold;
     font-size: 1.0em;
 }
-
 
 #vote {
     font-weight: bold;
