@@ -1,50 +1,51 @@
 ﻿@model PagedList.IPagedList<Forum.Models.Questions>
 
 @helper Truncate(string input, int length)
-    { 
-     if (input.Length <= length)
-     { 
-        @input 
-     }
-     else
-     { 
-        @input.Substring(0, length)<text>...</text> 
-     } 
+{
+    if (input.Length <= length)
+    {
+        @input
+    }
+    else
+    {
+        @input.Substring(0, length)<text>...</text>
+    }
 }
 @{
     ViewBag.Title = "Index Questions";
 }
 
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 
 <fieldset>
     <legend>Questions</legend>
-        <div class="login_main">
-            <div class="login_float">
-                @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
-            </div>        
-                @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-                {
-                    <p>
-                        <i>Group: </i> @Html.DropDownList("questionGroup", "All") 
-                        <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) <input type="submit" value="Search" />
-                        <i>Search on: Name, Description and Tags</i> - <i>Sort on: Votes</i><br /><br />    
-                    </p>            
-                } 
+    <div class="login_main">
+        <div class="login_float">
+            @Html.Partial("~/Views/Shared/_LoginPartial.cshtml")
         </div>
-        @if (Request.IsAuthenticated)
-        {
-            <p class="link">
-                @Html.ActionLink("Forum groups", "Index", "ForumGroup") | @Html.ActionLink("Create new question", "Create")
-            </p>
-        }
-        else
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
         {
             <p>
-                Login to create a new Question or Group!
+                <i>Group: </i> @Html.DropDownList("questionGroup", "All")
+                <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) <input type="submit" value="Search" />
+                <i>Search on: Name, Description and Tags</i> - <i>Sort on: Votes</i><br /><br />
             </p>
         }
-        <table id="select">
+    </div>
+    @if (Request.IsAuthenticated)
+    {
+        <p class="link">
+            @Html.ActionLink("Forum groups", "Index", "ForumGroup") | @Html.ActionLink("Create new question", "Create")
+        </p>
+    }
+    else
+    {
+        <p>
+            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to create a new Question or Group!
+        </p>
+    }
+    <table id="select">
         <tr>
             <th>@Html.ActionLink("Date", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
             <th>@Html.ActionLink("Group", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
@@ -70,8 +71,8 @@
                 </td>
                 <td class="vote" onclick="onRowClick(@item.QuestionId)">
                     @{
-                        var UserId = ViewBag.UserId;
-                        bool exists = item.Votes.Where(v => v.QuestionId == item.QuestionId && v.UserId == UserId).Any();
+            var UserId = ViewBag.UserId;
+            bool exists = item.Votes.Where(v => v.QuestionId == item.QuestionId && v.UserId == UserId).Any();
                     }
                     @if (exists == false)
                     {
@@ -83,7 +84,7 @@
                                 <div>
                                     @Html.Hidden("UserId", (object)ViewBag.UserId)
                                     @Html.Hidden("QuestionId", (object)item.QuestionId)
-                                    <a href="@Url.Action("Index")" data-form-method="post">Vote!</a>
+                                    <a href="@Url.Action("Index")" data-form-method="post" id="vote">Vote!</a>
                                 </div>
                             }
                         }
@@ -105,13 +106,14 @@
                     </td>
                 }
             </tr>
-      }
-      </table>
-      <br />
-      <div>
+        }
+    </table>
+
+    <br />
+    <div>
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
         of @Model.PageCount
-     
+
         @if (Model.HasPreviousPage)
         {
             @Html.ActionLink("<<", "Index", new { page = 1, sortQuestion = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
@@ -124,7 +126,7 @@
             @Html.Raw(" ");
             @:< Prev
         }
-     
+
         @if (Model.HasNextPage)
         {
             @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortQuestion = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter })
@@ -137,7 +139,7 @@
             @Html.Raw(" ")
             @:>>
         }
-    </div>  
+    </div>
 </fieldset>
 
 <div id="result"></div>
@@ -156,7 +158,7 @@
 
     function onRowClick(id) {
         $.ajax({
-            url: "Home/_Read/" + id,
+            url: "Home/Read/" + id,
             type: "Get",
             success: (function (data) {
                 $("#result").html(data);

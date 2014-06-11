@@ -75,7 +75,7 @@ namespace Forum.Controllers
             return View(questions.ToPagedList(PageNumber, PageSize));
         }
         
-        public ActionResult _Read(int id = 0)
+        public ActionResult read(int id = 0)
         {
             Questions Question = db.Questions.Find(id);
 
