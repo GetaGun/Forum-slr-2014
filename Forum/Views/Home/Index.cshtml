@@ -42,7 +42,7 @@
         else
         {
             <p>
-                Login to create a new Question or Group!
+                @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to create a new Question or Group!
             </p>
         }
         <table>
