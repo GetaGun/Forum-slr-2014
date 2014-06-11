@@ -9,11 +9,6 @@ header, footer, nav, section {
     display: block;
 }
 
-tr.hover td
-{ 
-    background-color:#99CCFF; 
-}
-
 /* Styles for basic forms
 -----------------------------------------------------------*/
 .title {
@@ -97,7 +92,7 @@ a:active {
 }
 
 a:hover {
-    color: red;
+    color: blue;
     text-decoration: underline;
 }
 
@@ -106,19 +101,6 @@ a:hover {
     font-size: 1.0em;
 }
 
-
-#vote {
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-#loginLink,
-#registerLink,
-#logoutForm,
-.username {
-    text-decoration: underline;
-    font-weight: bold;
-}
 /* Styles for the messages
 -----------------------------------------------------------*/
 .message_main {

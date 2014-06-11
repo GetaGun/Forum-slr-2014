@@ -51,26 +51,26 @@ namespace Forum.Controllers
             }
 
             ViewBag.CurrentSort = sortQuestion;
-            ViewBag.MainParm = String.IsNullOrEmpty(sortQuestion) ? "name desc" : "";
-            ViewBag.SubmainParm = sortQuestion == "vote" ? "vote desc" : "vote";
+            ViewBag.MainParm = String.IsNullOrEmpty(sortQuestion) ? "Name" : "";
+            ViewBag.SubmainParm = sortQuestion == "vote desc" ? "vote" : "vote desc";
 
             switch (sortQuestion)
             {
-                case "name desc":
-                    questions = questions.OrderByDescending(q => q.Votes.Count);
-                    break;
-                case "vote":
+                case "Name":
                     questions = questions.OrderBy(q => q.Votes.Count);
                     break;
                 case "vote desc":
                     questions = questions.OrderByDescending(q => q.Votes.Count);
                     break;
-                default:
+                case "vote":
                     questions = questions.OrderBy(q => q.Votes.Count);
+                    break;
+                default:
+                    questions = questions.OrderByDescending(q => q.Votes.Count);
                     break;
             }
             
-            int PageSize = 50;
+            int PageSize = 10;
             int PageNumber = (page ?? 1);
             return View(questions.ToPagedList(PageNumber, PageSize));
         }

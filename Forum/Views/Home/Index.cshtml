@@ -42,15 +42,15 @@
         else
         {
             <p>
-                @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to create a new Question or Group!
+                Login to create a new Question or Group!
             </p>
         }
-        <table id="select">
+        <table>
             <tr>
-                <th>@Html.ActionLink("Date", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
-                <th>@Html.ActionLink("Group", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Date", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Group", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Name", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
-                <th>@Html.ActionLink("Description", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Description", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Votes", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 @if (Request.IsAuthenticated)
                 {
@@ -88,7 +88,7 @@
                                     <div>
                                         @Html.Hidden("UserId", (object)ViewBag.UserId)
                                         @Html.Hidden("QuestionId", (object)item.QuestionId)
-                                        <a href="@Url.Action("Index")" data-form-method="post" id="vote">Vote!</a>
+                                        <a href="@Url.Action("Index")" data-form-method="post">Vote!</a>
                                     </div>
                                 }
                             }
@@ -158,16 +158,4 @@
             form.submit();
         });
     });
-    
-    jQuery("#select tr")
-    .on("mouseenter",
-        function () {
-            jQuery(this).addClass("hover");
-        }
-    )
-    .on("mouseleave",
-        function () {
-            jQuery(this).removeClass("hover");
-        }
-);
 </script>
