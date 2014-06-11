@@ -49,8 +49,7 @@
             <tr>
                 <th>@Html.ActionLink("Date", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 <th>@Html.ActionLink("Group", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
-                <th>@Html.ActionLink("Name", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
-                <th>@Html.ActionLink("Description", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th>@Html.ActionLink("Name", "Index", new { sortQuestion = ViewBag.MainParm, currentFilter = ViewBag.CurrentFilter })</th>              
                 <th>@Html.ActionLink("Votes", "Index", new { sortQuestion = ViewBag.SubmainParm, currentFilter = ViewBag.CurrentFilter })</th>
                 @if (Request.IsAuthenticated)
                 {
@@ -61,19 +60,16 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td class="date">
+                    <td class="date" onclick="onRowClick(@item.QuestionId)">
                         @Html.DisplayFor(modelItem => item.Date)
                     </td>
-                    <td class="group">
+                    <td class="group" onclick="onRowClick(@item.QuestionId)">
                         <a href="@Url.Action("Details", new { id=item.QuestionId})">@Truncate(item.QuestionGroups.QuestionGroupName, 25)</a>
                     </td>
-                    <td class="title">
+                    <td class="title" onclick="onRowClick(@item.QuestionId)">
                         <a href="@Url.Action("Details", new { id=item.QuestionId})">@Truncate(item.QuestionName, 100)</a>
                     </td>
-                    <td class="description">
-                        @Ajax.ActionLink("Read", "Read", new { id = item.QuestionId }, new AjaxOptions { UpdateTargetId = "result" })
-                    </td>
-                    <td class="vote">
+                    <td class="vote" onclick="onRowClick(@item.QuestionId)">
                         @{
                             var UserId = ViewBag.UserId;
                             bool exists = item.Votes.Where(v => v.QuestionId == item.QuestionId && v.UserId == UserId).Any();
@@ -104,7 +100,7 @@
                     </td>
                     @if (Request.IsAuthenticated)
                     {
-                        <td class="delete">
+                        <td class="delete" onclick="onRowClick(@item.QuestionId)">
                             @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.QuestionId })
                         </td>
@@ -158,4 +154,14 @@
             form.submit();
         });
     });
+
+    function onRowClick(id) {
+        $.ajax({
+            url: "Home/Read/" + id,
+            type: "Get",
+            success: (function (data) {
+                $("#result").html(data);
+            })
+        });
+    }
 </script>
