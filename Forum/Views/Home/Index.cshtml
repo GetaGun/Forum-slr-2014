@@ -42,7 +42,7 @@
         else
         {
             <p>
-                Login to create a new Question or Group!
+                @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to create a new Question or Group!
             </p>
         }
         <table id="select">
@@ -88,7 +88,7 @@
                                     <div>
                                         @Html.Hidden("UserId", (object)ViewBag.UserId)
                                         @Html.Hidden("QuestionId", (object)item.QuestionId)
-                                        <a href="@Url.Action("Index")" data-form-method="post">Vote!</a>
+                                        <a href="@Url.Action("Index")" data-form-method="post" id="vote">Vote!</a>
                                     </div>
                                 }
                             }
