@@ -27,7 +27,7 @@
         @using (Html.BeginForm("Index", "Home", FormMethod.Get))
         {
             <p>
-                <i>Group: </i> @Html.DropDownList("questionGroup", "All")
+                <i>Group: </i> @Html.DropDownList("questionGroup", "All") <input type="submit" value="Filter" />
                 <i>Keyword: </i>@Html.TextBox("searchString", ViewBag.CurrentFilter as string) <input type="submit" value="Search" />
                 <i>Search on: Name, Description and Tags</i> - <i>Sort on: Votes</i><br /><br />
             </p>
