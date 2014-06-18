@@ -11,15 +11,12 @@
     </div>
 </fieldset>
 
-@{
+    @{
     bool message = Model.Messages.Any();
-        
-}
+    }
 
-@if(message == true){
-<fieldset>
-     @Html.Partial("~/Views/Message/_Index.cshtml", Model.Messages)
-</fieldset>
-} else{
-    return;  
-}
+    @if (message == true){
+         @Html.Partial("~/Views/Message/_Index.cshtml", Model.Messages)
+    } else{
+        return;  
+    }
