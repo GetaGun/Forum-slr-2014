@@ -14,6 +14,10 @@ tr.hover td
     background-color:#99CCFF; 
 }
 
+tr.ZS{
+    background-color: #dddddd;
+}
+
 /* Styles for basic forms
 -----------------------------------------------------------*/
 .title {

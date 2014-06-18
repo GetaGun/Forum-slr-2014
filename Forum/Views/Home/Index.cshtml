@@ -156,6 +156,10 @@
         });
     });
 
+    $(function () {
+        $("table tr:nth-child(even)").addClass("ZS");
+    });
+
     function onRowClick(id) {
         $.ajax({
             url: "Home/_Read/" + id,
