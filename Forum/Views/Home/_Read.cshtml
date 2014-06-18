@@ -11,12 +11,12 @@
     </div>
 </fieldset>
 
-    @{
+@{
     bool message = Model.Messages.Any();
-    }
+}
 
-    @if (message == true){
-         @Html.Partial("~/Views/Message/_Index.cshtml", Model.Messages)
-    } else{
-        return;  
-    }
+@if (message == true && Request.IsAuthenticated){
+    @Html.Partial("~/Views/Message/_Index.cshtml", Model.Messages)
+} else{
+    return;  
+}
