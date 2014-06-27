@@ -18,6 +18,11 @@ tr.ZS{
     background-color: #dddddd;
 }
 
+.message-success
+{
+    color: red;
+}
+
 /* Styles for basic forms
 -----------------------------------------------------------*/
 .title {
