@@ -157,16 +157,6 @@ namespace Forum.Controllers
             return View(Question);
         }
 
-        public ActionResult Delete(int id = 0)
-        {
-            Questions Question = db.Questions.Find(id);
-            if (Question == null)
-            {
-                return HttpNotFound();
-            }
-            return View(Question);
-        }
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {

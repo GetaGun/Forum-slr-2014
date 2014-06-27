@@ -4,49 +4,50 @@
 }
 
 <fieldset>
-<legend>Create Question</legend>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true);
-    <div>
-        <div class="editor-label">
-            <b>Question Name</b>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(q => q.QuestionName)
-            @Html.ValidationMessageFor(q => q.QuestionName)
-        </div>
-        <div class="editor-label">
-            <b>Forum Group</b> - @Html.ActionLink("New forum group", "Create", "ForumGroup")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("QuestionGroupId", String.Empty)
-            @Html.ValidationMessageFor(q => q.QuestionGroupId)
-        </div>
-        <div class="editor-label">
-           <b>Question Description</b>
-        </div>
-        <div class="editor-field">
-            @Html.TextAreaFor(q => q.QuestionDescription, new { @rows="10" })
-            @Html.ValidationMessageFor(q => q.QuestionDescription)
-        </div>
+    <legend>Create Question</legend>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true);
+        <div>
+            <div class="editor-label">
+                <b>Question Name</b>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(q => q.QuestionName)
+                @Html.ValidationMessageFor(q => q.QuestionName)
+            </div>
+            <div class="editor-label">
+                <b>Forum Group</b> @if (User.IsInRole("Admin"))
+                { <Text>-</Text> @Html.ActionLink("New forum group", "Create", "ForumGroup") }
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("QuestionGroupId", String.Empty)
+                @Html.ValidationMessageFor(q => q.QuestionGroupId)
+            </div>
+            <div class="editor-label">
+                <b>Question Description</b>
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(q => q.QuestionDescription, new { @rows = "10" })
+                @Html.ValidationMessageFor(q => q.QuestionDescription)
+            </div>
 
-        <div class="editor-label">
-            <b>Question Keyword</b>
+            <div class="editor-label">
+                <b>Question Keyword</b>
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(q => q.QuestionKeyword)
+                @Html.ValidationMessageFor(q => q.QuestionKeyword)
+            </div>
+            <div class="editor-label">
+                <b>Date</b>
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Date, new { Value = System.DateTime.Now.ToString("dd-MM-yyyy") })
+                @Html.ValidationMessageFor(q => q.Date)
+            </div><br />
+            <input type="submit" value="Create" /> | @Html.ActionLink("Back", "Index")
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(q => q.QuestionKeyword)
-            @Html.ValidationMessageFor(q => q.QuestionKeyword)
-        </div>
-        <div class="editor-label">
-            <b>Date</b>
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.Date, new { Value = System.DateTime.Now.ToString("dd-MM-yyyy") })
-            @Html.ValidationMessageFor(q => q.Date)
-        </div><br />
-        <input type="submit" value="Create" /> | @Html.ActionLink("Back", "Index")
-    </div>
-}
+    }
 </fieldset>

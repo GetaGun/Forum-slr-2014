@@ -4,21 +4,27 @@
     ViewBag.Title = "Index";
 }
 
-@foreach (var item in Model) 
+@foreach (var item in Model)
 {
     <div class="message_main">
         <div class="message_float">
-            @Html.ActionLink("Edit", "Edit", new { id=item.MessageId }) | @Html.ActionLink("Delete", "Delete", new { id=item.MessageId })
+            @{
+                var UserId = WebSecurity.GetUserId(User.Identity.Name);
+            }
+            @if (item.UserId == UserId)
+            {
+                <i>@Html.ActionLink("Edit", "Edit", "Message", new { MessageId = item.MessageId, QuestionId = item.QuestionId }, null) | @Html.ActionLink("Delete", "Delete", "Message", new { MessageId = item.MessageId, QuestionId = item.QuestionId }, null)</i>
+            }
         </div>
         <div>
             <b>@Html.DisplayFor(modelItem => item.UserProfile.UserName)</b>
         </div>
         <br />
         <div>
-            @Html.DisplayFor(modelItem => item.MessageText)       
+            @Html.DisplayFor(modelItem => item.MessageText)
             <br /><br />
             <i>
-            @Html.DisplayFor(modelItem => item.Date)
+                @Html.DisplayFor(modelItem => item.Date)
             </i>
         </div>
     </div>

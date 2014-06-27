@@ -15,10 +15,13 @@
     ViewBag.Title = "Index Forum Groups";
 }
 
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+
 <fieldset>
     <Legend>Forum Groups</Legend>
         <br />
-        <table>
+        <table style="width: 30%">
             <tr>
                 <th>
                     <b>Forum Group</b>
@@ -33,11 +36,16 @@
                     @Html.DisplayFor(modelItem => item.QuestionGroupName)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { id=item.QuestionGroupId })
+                    @Ajax.ActionLink("Delete", "Delete", new { id = item.QuestionGroupId }, new AjaxOptions
+                        {
+                            Confirm = "Are you sure you wish to delete this Question Group?",
+                            HttpMethod = "Post",
+                            OnSuccess = "window.location.reload()"
+                        })
                 </td>
             </tr>
         }
         </table>
         <br />
-    @Html.ActionLink("Create", "Create", "ForumGroup") | @Html.ActionLink("Back", "Index", "Home")
+     @Html.ActionLink("Back", "Index", "Home")
 </fieldset>

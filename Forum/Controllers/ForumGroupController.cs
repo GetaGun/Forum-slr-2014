@@ -36,16 +36,6 @@ namespace Forum.Controllers
             return View(Group);
         }
 
-        public ActionResult Delete(int id = 0)
-        {
-            QuestionGroups Group = db.QuestionGroups.Find(id);
-            if (Group == null)
-            {
-                return HttpNotFound();
-            }
-            return View(Group);
-        }
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {

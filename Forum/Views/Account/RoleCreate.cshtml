@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Role Create";
+}
+
+<fieldset>
+    <legend>Role Create</legend>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <p>
+            <b>Role name</b><br />
+            @Html.TextBox("RoleName")
+        </p>
+        <input type="submit" value="Save" /> <text>|</text> @Html.ActionLink("Back", "RoleIndex")
+    }
+</fieldset>

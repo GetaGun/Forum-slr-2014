@@ -264,11 +264,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
-    <Content Include="Views\Home\Delete.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\ForumGroup\Index.cshtml" />
     <Content Include="Views\ForumGroup\Create.cshtml" />
-    <Content Include="Views\ForumGroup\Delete.cshtml" />
     <Content Include="Views\Message\_Index.cshtml" />
     <Content Include="Views\Message\Create.cshtml" />
     <Content Include="Views\Home\_Read.cshtml" />
@@ -278,6 +276,11 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Message\Edit.cshtml" />
+    <Content Include="Views\Message\Delete.cshtml" />
+    <Content Include="Views\Account\RoleIndex.cshtml" />
+    <Content Include="Views\Account\RoleCreate.cshtml" />
+    <Content Include="Views\Account\RoleAddToUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
