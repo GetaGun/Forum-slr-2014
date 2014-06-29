@@ -15,8 +15,11 @@
     bool message = Model.Messages.Any();
 }
 
-@if (message == true && Request.IsAuthenticated){
+@if (message == true)
+{
     @Html.Partial("~/Views/Message/_Index.cshtml", Model.Messages)
-} else{
+} 
+else
+{
     return;  
 }

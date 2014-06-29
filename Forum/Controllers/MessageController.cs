@@ -66,17 +66,6 @@ namespace Forum.Controllers
             return View(Message);
         }
 
-        public ActionResult Delete(int MessageId = 0, int QuestionId = 0)
-        {
-            ViewBag.QuestionId = QuestionId;
-            Messages Message = db.Messages.Find(MessageId);
-            if (Message == null)
-            {
-                return HttpNotFound();
-            }
-            return View(Message);
-        }
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int MessageId, int QuestionId)
         {

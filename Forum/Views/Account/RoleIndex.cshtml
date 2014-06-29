@@ -18,7 +18,7 @@
                     @s
                 </td>
                 <td>
-                    <span onclick="return confirm('Are you sure you wish to delete this Role Name?')">
+                    <span onclick="return confirm('Are you sure you wish to delete this Role name: ' + '@s' + '?')">
                         <a href="/Account/RoleDelete?RoleName=@s" class="delLink">Delete</a>
                     </span>
                 </td>
@@ -26,5 +26,5 @@
         }
     </table>
     <br />
-    @Html.ActionLink("Create new Role", "RoleCreate") | @Html.ActionLink("Back", "RoleAddToUser", "Account")
+    @Html.ActionLink("Create", "RoleCreate") | @Html.ActionLink("Back", "RoleAddToUser", "Account")
 </fieldset>

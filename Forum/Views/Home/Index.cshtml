@@ -108,7 +108,7 @@
                         @Html.ActionLink("Edit", "Edit", new { id = item.QuestionId }) |
                         @Ajax.ActionLink("Delete", "Delete", new { id = item.QuestionId }, new AjaxOptions
                         {
-                            Confirm = "Are you sure you wish to delete this Question?",
+                            Confirm = "Are you sure you wish to delete this Question name: " + item.QuestionName + "?",
                             HttpMethod = "Post",
                             OnSuccess = "window.location.reload()"
                         })

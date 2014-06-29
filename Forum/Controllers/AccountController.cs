@@ -8,13 +8,11 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using Forum.Filters;
 using Forum.Models;
 
 namespace Forum.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         //
@@ -99,9 +97,6 @@ namespace Forum.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        //
-        // POST: /Account/Disassociate
 
         [HttpPost]
         [ValidateAntiForgeryToken]

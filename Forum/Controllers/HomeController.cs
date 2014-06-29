@@ -8,7 +8,6 @@ using System.Web.Mvc;
 using Forum.Models;
 using PagedList;
 using WebMatrix.WebData;
-using Forum.Filters;
 
 namespace Forum.Controllers
 {
@@ -16,7 +15,6 @@ namespace Forum.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        [InitializeSimpleMembership]
         public ViewResult Index(string sortQuestion, string currentFilter, string questionGroup, string searchString, int? page)
         {   
             ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);                    
