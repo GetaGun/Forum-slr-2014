@@ -17,7 +17,7 @@ namespace Forum.Controllers
 
         public ViewResult Index(string sortQuestion, string currentFilter, string questionGroup, string searchString, int? page)
         {   
-            ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);                    
+            ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);
 
             if (searchString != null)
             {

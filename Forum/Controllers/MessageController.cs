@@ -41,11 +41,14 @@ namespace Forum.Controllers
         }
 
         public ActionResult Edit(int MessageId = 0, int QuestionId = 0)
-        {
+        {           
             ViewBag.QuestionId = QuestionId;
             Session["MessageId"] = MessageId;
+
             Messages Message = db.Messages.Find(MessageId);
-            if (Message == null)
+            var UserId = WebSecurity.GetUserId(User.Identity.Name);
+
+            if (Message == null || Message.UserId != UserId)
             {
                 return HttpNotFound();
             }

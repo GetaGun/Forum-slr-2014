@@ -20,11 +20,11 @@
                    @Html.ActionLink("Edit", "Edit", "Message", new { MessageId = item.MessageId, QuestionId = item.QuestionId }, null) |
                    @Ajax.ActionLink("Delete", "Delete", "Message", new { MessageId = item.MessageId, QuestionId = item.QuestionId }, new AjaxOptions
                    {
-                       Confirm = "Are you sure you wish to delete this Message you created?",
+                       Confirm = "Are you sure you wish to delete this Message you created on: " + item.Date + "?",
                        HttpMethod = "Post",
                        OnSuccess = "window.location.reload()"
                    })
-            </i>
+                </i>
             }
         </div>
         <div>
