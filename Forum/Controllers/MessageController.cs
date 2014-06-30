@@ -40,12 +40,12 @@ namespace Forum.Controllers
             return View(messages);
         }
 
-        public ActionResult Edit(int MessageId = 0, int QuestionId = 0)
-        {           
-            ViewBag.QuestionId = QuestionId;
-            Session["MessageId"] = MessageId;
+        public ActionResult Edit(int id = 0)
+        {
+            ViewBag.QuestionId = (from m in db.Messages where m.MessageId == id select m.QuestionId).First();
+            Session["MessageId"] = id;
 
-            Messages Message = db.Messages.Find(MessageId);
+            Messages Message = db.Messages.Find(id);
             var UserId = WebSecurity.GetUserId(User.Identity.Name);
 
             if (Message == null || Message.UserId != UserId)
@@ -70,9 +70,10 @@ namespace Forum.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int MessageId, int QuestionId)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Messages Message = db.Messages.Find(MessageId);
+            var QuestionId = (from m in db.Messages where m.MessageId == id select m.QuestionId).First();
+            Messages Message = db.Messages.Find(id);
             db.Messages.Remove(Message);
             db.SaveChanges();
             return RedirectToAction("Details", "Home", new { id = QuestionId });
