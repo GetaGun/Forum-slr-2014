@@ -42,15 +42,17 @@ namespace Forum.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            ViewBag.QuestionId = (from m in db.Messages where m.MessageId == id select m.QuestionId).First();
             Session["MessageId"] = id;
-
             Messages Message = db.Messages.Find(id);
             var UserId = WebSecurity.GetUserId(User.Identity.Name);
 
             if (Message == null || Message.UserId != UserId)
             {
                 return HttpNotFound();
+            }
+            else
+            {
+                ViewBag.QuestionId = (from m in db.Messages where m.MessageId == id select m.QuestionId).First();
             }
             return View(Message);
         }

@@ -16,7 +16,7 @@ namespace Forum.Controllers
         private DatabaseContext db = new DatabaseContext();
 
         public ViewResult Index(string sortQuestion, string currentFilter, string questionGroup, string questionKeyword, string searchString, int? page)
-        {   
+        {
             ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);
 
             if (searchString != null)
