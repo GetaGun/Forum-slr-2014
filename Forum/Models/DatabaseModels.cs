@@ -20,6 +20,7 @@ namespace Forum.Models
         public DbSet<Questions> Questions { get; set; }
         public DbSet<Votes> Votes { get; set; }
         public DbSet<QuestionGroups> QuestionGroups { get; set; }
+        public DbSet<QuestionKeywords> QuestionKeywords { get; set; }
         public DbSet<Messages> Messages { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
     }
@@ -36,13 +37,14 @@ namespace Forum.Models
         [Required(ErrorMessage = "Question Description is required")]
         public string QuestionDescription { get; set; }
 	    [Required(ErrorMessage = "Question Keyword is required")]
-        public string QuestionKeyword { get; set; }
+        public int QuestionKeywordId { get; set; }
         [Required(ErrorMessage = "DateTime is required")]
         public System.DateTime Date { get; set; }
         
         public virtual List<Messages> Messages { get; set; }
         public virtual List<Votes> Votes { get; set; }
         public virtual QuestionGroups QuestionGroups { get; set; }
+        public virtual QuestionKeywords QuestionKeywords { get; set; }
     }
 
     [Table("QuestionGroups")]
@@ -52,6 +54,17 @@ namespace Forum.Models
         public int QuestionGroupId { get; set; }
         [Required(ErrorMessage = "Question Group is required")]
         public string QuestionGroupName { get; set; }
+
+        public virtual List<Questions> Questions { get; set; }
+    }
+
+    [Table("QuestionKeywords")]
+    public class QuestionKeywords
+    {
+        [Key]
+        public int QuestionKeywordId { get; set; }
+        [Required(ErrorMessage = "Question Keyword is required")]
+        public string QuestionKeywordName { get; set; }
 
         public virtual List<Questions> Questions { get; set; }
     }

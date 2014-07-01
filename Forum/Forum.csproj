@@ -161,6 +161,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ForumGroupController.cs" />
+    <Compile Include="Controllers\ForumKeywordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -281,6 +282,8 @@
     <Content Include="Views\Account\RoleIndex.cshtml" />
     <Content Include="Views\Account\RoleCreate.cshtml" />
     <Content Include="Views\Account\RoleAddToUser.cshtml" />
+    <Content Include="Views\ForumKeyword\Index.cshtml" />
+    <Content Include="Views\ForumKeyword\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

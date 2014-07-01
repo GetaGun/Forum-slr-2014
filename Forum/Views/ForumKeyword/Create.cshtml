@@ -1,0 +1,25 @@
+﻿@model Forum.Models.QuestionKeywords
+
+@{
+    ViewBag.Title = "Create Forum Keyword";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Forum Keywords</legend>
+
+        <div class="editor-label">
+            <b>Keyword</b>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QuestionKeywordName)
+            @Html.ValidationMessageFor(model => model.QuestionKeywordName)
+        </div>
+        <br />
+        <input type="submit" value="Create" /> | @Html.ActionLink("Back", "Create", "Home")
+    </fieldset>
+}

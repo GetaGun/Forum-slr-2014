@@ -34,8 +34,8 @@
             <b>Question Keyword</b>
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.QuestionKeyword)
-            @Html.ValidationMessageFor(n => n.QuestionKeyword)
+            @Html.DropDownListFor(q => q.QuestionKeywordId, (SelectList)ViewBag.QuestionKeywordSelected, String.Empty)
+            @Html.ValidationMessageFor(q => q.QuestionKeywordId)
         </div>
         <div class="editor-label">
             <b>Date</b>

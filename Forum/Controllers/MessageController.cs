@@ -73,6 +73,7 @@ namespace Forum.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var QuestionId = (from m in db.Messages where m.MessageId == id select m.QuestionId).First();
+
             Messages Message = db.Messages.Find(id);
             db.Messages.Remove(Message);
             db.SaveChanges();

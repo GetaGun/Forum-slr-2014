@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Forum.Models.QuestionGroups>
+﻿@model IEnumerable<Forum.Models.QuestionKeywords>
 
 @helper Truncate(string input, int length)
 {
@@ -12,19 +12,19 @@
     }
 }
 @{
-    ViewBag.Title = "Index Forum Groups";
+    ViewBag.Title = "Index Forum Keywords";
 }
 
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
 
 <fieldset>
-    <legend>Forum Groups</legend>
+    <legend>Forum Keywords</legend>
     <br />
     <table style="width: 30%">
         <tr>
             <th>
-                <b>Forum Group</b>
+                <b>Forum Keyword</b>
             </th>
             <th></th>
         </tr>
@@ -33,15 +33,15 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.QuestionGroupName)
+                    @Html.DisplayFor(modelItem => item.QuestionKeywordName)
                 </td>
                 <td>
-                    @Ajax.ActionLink("Delete", "Delete", new { id = item.QuestionGroupId }, new AjaxOptions
+                    @Ajax.ActionLink("Delete", "Delete", new { id = item.QuestionKeywordId }, new AjaxOptions
                     {
-                        Confirm = "Are you sure you wish to delete this Question group: " + item.QuestionGroupName + "? \nRemember that the Questions with this group will also be deleted!",
+                        Confirm = "Are you sure you wish to delete this Question keyword: " + item.QuestionKeywordName + "? \nRemember that the Questions with this Keyword will also be deleted!",
                         HttpMethod = "Post",
                         OnSuccess = "window.location.reload()"
-                     })
+                    })
                 </td>
             </tr>
         }

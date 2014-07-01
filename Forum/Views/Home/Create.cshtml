@@ -34,11 +34,12 @@
             </div>
 
             <div class="editor-label">
-                <b>Question Keyword</b>
+                <b>Question Keyword</b> @if (Request.IsAuthenticated)
+                { <Text>-</Text> @Html.ActionLink("New forum keyword", "Create", "ForumKeyword") }
             </div>
             <div class="editor-field">
-                @Html.EditorFor(q => q.QuestionKeyword)
-                @Html.ValidationMessageFor(q => q.QuestionKeyword)
+                @Html.DropDownList("QuestionKeywordId", String.Empty)
+                @Html.ValidationMessageFor(q => q.QuestionKeywordId)
             </div>
             <div class="editor-label">
                 <b>Date</b>

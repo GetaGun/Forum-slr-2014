@@ -15,7 +15,7 @@ namespace Forum.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
 
-        public ViewResult Index(string sortQuestion, string currentFilter, string questionGroup, string searchString, int? page)
+        public ViewResult Index(string sortQuestion, string currentFilter, string questionGroup, string questionKeyword, string searchString, int? page)
         {   
             ViewBag.UserId = WebSecurity.GetUserId(User.Identity.Name);
 
@@ -34,7 +34,6 @@ namespace Forum.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 questions = questions.Where(q => q.QuestionName.ToUpper().Contains(searchString.ToUpper())
-                                       || q.QuestionKeyword.ToUpper().Contains(searchString.ToUpper())
                                        || q.QuestionDescription.ToUpper().Contains(searchString.ToUpper()));
             }
 
@@ -46,6 +45,16 @@ namespace Forum.Controllers
             if (!String.IsNullOrEmpty(questionGroup))
             {
                 questions = questions.Where(q => q.QuestionGroups.QuestionGroupName == questionGroup);
+            }
+
+            var questionKeywordLst = new List<string>();
+            var questionKeywordsQry = from q in db.Questions select q.QuestionKeywords.QuestionKeywordName;
+            questionKeywordLst.AddRange(questionKeywordsQry.Distinct());
+            ViewBag.questionKeyword = new SelectList(questionKeywordLst);
+
+            if (!String.IsNullOrEmpty(questionKeyword))
+            {
+                questions = questions.Where(q => q.QuestionKeywords.QuestionKeywordName == questionKeyword);
             }
 
             ViewBag.CurrentSort = sortQuestion;
@@ -111,6 +120,7 @@ namespace Forum.Controllers
         public ActionResult Create()
         {
             ViewBag.QuestionGroupId = new SelectList(db.QuestionGroups, "QuestionGroupId", "QuestionGroupName");
+            ViewBag.QuestionKeywordId = new SelectList(db.QuestionKeywords, "QuestionKeywordId", "QuestionKeywordName");
             return View();
         }
 
@@ -125,6 +135,7 @@ namespace Forum.Controllers
                 return RedirectToAction("Index");
             }           
             ViewBag.QuestionGroupId= new SelectList(db.QuestionGroups, "QuestionGroupId", "QuestionGroupName", Question.QuestionGroupId);
+            ViewBag.QuestionKeywordId = new SelectList(db.QuestionKeywords, "QuestionKeywordId", "QuestionKeywordName", Question.QuestionKeywordId);
             return View(Question);
         }
 
@@ -137,6 +148,7 @@ namespace Forum.Controllers
                 return HttpNotFound();
             }
             ViewBag.QuestionGroupSelected = new SelectList(db.QuestionGroups, "QuestionGroupId", "QuestionGroupName");
+            ViewBag.QuestionKeywordSelected = new SelectList(db.QuestionKeywords, "QuestionKeywordId", "QuestionKeywordName");
             return View(Question);
         }
 
@@ -152,6 +164,7 @@ namespace Forum.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.QuestionGroupSelected = new SelectList(db.QuestionGroups, "QuestionGroupId", "QuestionGroupName", Question.QuestionGroupId);
+            ViewBag.QuestionKeywordSelected = new SelectList(db.QuestionKeywords, "QuestionKeywordId", "QuestionKeywordName", Question.QuestionKeywordId);
             return View(Question);
         }
 
