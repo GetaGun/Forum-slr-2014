@@ -96,12 +96,15 @@ namespace Forum.Controllers
         
         public ActionResult Details(int id = 0)
         {            
-            ViewBag.VoteCount = db.Votes.Where(v => v.QuestionId == id).Count();
             Questions Question = db.Questions.Find(id);                      
 
             if (Question == null)
             {
                 return HttpNotFound();
+            }
+            else
+            {
+                ViewBag.VoteCount = db.Votes.Where(v => v.QuestionId == id).Count();
             }
 
             return View(Question);
@@ -172,6 +175,7 @@ namespace Forum.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Questions Question = db.Questions.Find(id);
+
             db.Questions.Remove(Question);
             db.SaveChanges();
             return RedirectToAction("Index");

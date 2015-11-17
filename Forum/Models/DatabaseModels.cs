@@ -32,12 +32,12 @@ namespace Forum.Models
         public int QuestionId { get; set; }
         [Required(ErrorMessage = "Question Group is required")]
         public int QuestionGroupId { get; set; }
+        [Required(ErrorMessage = "Question Keyword is required")]
+        public int QuestionKeywordId { get; set; }
         [Required(ErrorMessage = "Question Name is required")]
         public string QuestionName { get; set; }
         [Required(ErrorMessage = "Question Description is required")]
         public string QuestionDescription { get; set; }
-	    [Required(ErrorMessage = "Question Keyword is required")]
-        public int QuestionKeywordId { get; set; }
         [Required(ErrorMessage = "DateTime is required")]
         public System.DateTime Date { get; set; }
         

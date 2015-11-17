@@ -20,6 +20,12 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -167,9 +173,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201406101321455_InitialCreate.cs" />
-    <Compile Include="Migrations\201406101321455_InitialCreate.Designer.cs">
-      <DependentUpon>201406101321455_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201407010953167_InitialCreate.cs" />
+    <Compile Include="Migrations\201407010953167_InitialCreate.Designer.cs">
+      <DependentUpon>201407010953167_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels.cs" />
@@ -278,7 +284,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Message\Edit.cshtml" />
-    <Content Include="Views\Message\Delete.cshtml" />
     <Content Include="Views\Account\RoleIndex.cshtml" />
     <Content Include="Views\Account\RoleCreate.cshtml" />
     <Content Include="Views\Account\RoleAddToUser.cshtml" />
@@ -292,8 +297,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406101321455_InitialCreate.resx">
-      <DependentUpon>201406101321455_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201407010953167_InitialCreate.resx">
+      <DependentUpon>201407010953167_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

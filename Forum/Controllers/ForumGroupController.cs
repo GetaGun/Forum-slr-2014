@@ -40,6 +40,7 @@ namespace Forum.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             QuestionGroups Group = db.QuestionGroups.Find(id);
+
             db.QuestionGroups.Remove(Group);
             db.SaveChanges();
             return RedirectToAction("Index");

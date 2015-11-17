@@ -11,7 +11,7 @@ namespace Forum.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201406101321455_InitialCreate"; }
+            get { return "201407010953167_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

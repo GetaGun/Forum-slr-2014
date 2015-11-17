@@ -207,6 +207,7 @@ namespace Forum.Controllers
         public ActionResult RoleIndex()
         {
             var roles = Roles.GetAllRoles();
+
             return View(roles);
         }
 
@@ -221,19 +222,21 @@ namespace Forum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult RoleCreate(string RoleName)
         {
-            Roles.CreateRole(Request.Form["RoleName"]);
-
-            // ViewBag.ResultMessage = "Role created successfully !";
-
-            return RedirectToAction("RoleIndex", "Account");
+            if (!string.IsNullOrWhiteSpace(RoleName))
+            {
+                Roles.CreateRole(Request.Form["RoleName"]);
+                return RedirectToAction("RoleIndex", "Account");
+            }
+            else
+            {
+                return RedirectToAction("RoleCreate", "Account");
+            }      
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult RoleDelete(string RoleName)
         {
             Roles.DeleteRole(RoleName);
-            // ViewBag.ResultMessage = "Role deleted succesfully !";
-
             return RedirectToAction("RoleIndex", "Account");
         }
 
@@ -255,17 +258,55 @@ namespace Forum.Controllers
         {
             if (Roles.IsUserInRole(UserName, RoleName))
             {
-                ViewBag.ResultMessage = "This user already has the role specified!";
+                ViewBag.ResultMessage_RoleAddToUser = "This user already has the role specified!";
             }
             else
             {
-                Roles.AddUserToRole(UserName, RoleName);
-                ViewBag.ResultMessage = "Username added to the role succesfully!";
+                if (!string.IsNullOrWhiteSpace(UserName))
+                {
+                    Roles.AddUserToRole(UserName, RoleName);
+                    ViewBag.ResultMessage_RoleAddToUser = "Username added to the role succesfully!";
+                }
+                else
+                {
+                    ViewBag.ResultMessage_RoleAddToUser = "Empty textbox!";
+                }
             }
 
             SelectList list = new SelectList(Roles.GetAllRoles());
             ViewBag.Roles = list;
+
             return View();
+        }
+
+        // Delete the role on user
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteRoleForUser(string UserName, string RoleName)
+        {
+            if (Roles.IsUserInRole(UserName, RoleName))
+            {
+                Roles.RemoveUserFromRole(UserName, RoleName);
+                ViewBag.ResultMessage_DeleteRoleForUser = "Role removed from this user successfully!";
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(UserName))
+                {
+                    ViewBag.ResultMessage_DeleteRoleForUser = "This user doesn't belong to selected role.";
+                }
+                else
+                {
+                    ViewBag.ResultMessage_DeleteRoleForUser = "Empty textbox!";
+                }
+            }
+
+            ViewBag.RolesForThisUser = Roles.GetRolesForUser(UserName);
+            SelectList list = new SelectList(Roles.GetAllRoles());
+            ViewBag.Roles = list;
+
+            return View("RoleAddToUser");
         }
 
         //Get all the roles for a particular user
@@ -280,28 +321,10 @@ namespace Forum.Controllers
                 SelectList list = new SelectList(Roles.GetAllRoles());
                 ViewBag.Roles = list;
             }
-            return View("RoleAddToUser");
-        }
-
-        // Delete the role on user
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteRoleForUser(string UserName, string RoleName)
-        {
-            if (Roles.IsUserInRole(UserName, RoleName))
-            {
-                Roles.RemoveUserFromRole(UserName, RoleName);
-                ViewBag.ResultMessage = "Role removed from this user successfully!";
-            }
             else
             {
-                ViewBag.ResultMessage = "This user doesn't belong to selected role.";
+                ViewBag.ResultMessage_GetRoles = "Empty textbox!";
             }
-            ViewBag.RolesForThisUser = Roles.GetRolesForUser(UserName);
-            SelectList list = new SelectList(Roles.GetAllRoles());
-            ViewBag.Roles = list;
-
             return View("RoleAddToUser");
         }
         #endregion

@@ -40,6 +40,7 @@ namespace Forum.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             QuestionKeywords Keyword = db.QuestionKeywords.Find(id);
+
             db.QuestionKeywords.Remove(Keyword);
             db.SaveChanges();
             return RedirectToAction("Index");

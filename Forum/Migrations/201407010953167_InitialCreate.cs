@@ -15,12 +15,14 @@ namespace Forum.Migrations
                         QuestionGroupId = c.Int(nullable: false),
                         QuestionName = c.String(nullable: false),
                         QuestionDescription = c.String(nullable: false),
-                        QuestionKeyword = c.String(nullable: false),
+                        QuestionKeywordId = c.Int(nullable: false),
                         Date = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.QuestionId)
                 .ForeignKey("dbo.QuestionGroups", t => t.QuestionGroupId, cascadeDelete: true)
-                .Index(t => t.QuestionGroupId);
+                .ForeignKey("dbo.QuestionKeywords", t => t.QuestionKeywordId, cascadeDelete: true)
+                .Index(t => t.QuestionGroupId)
+                .Index(t => t.QuestionKeywordId);
             
             CreateTable(
                 "dbo.Messages",
@@ -68,6 +70,15 @@ namespace Forum.Migrations
                     })
                 .PrimaryKey(t => t.QuestionGroupId);
             
+            CreateTable(
+                "dbo.QuestionKeywords",
+                c => new
+                    {
+                        QuestionKeywordId = c.Int(nullable: false, identity: true),
+                        QuestionKeywordName = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.QuestionKeywordId);
+            
         }
         
         public override void Down()
@@ -75,11 +86,14 @@ namespace Forum.Migrations
             DropIndex("dbo.Votes", new[] { "QuestionId" });
             DropIndex("dbo.Messages", new[] { "QuestionId" });
             DropIndex("dbo.Messages", new[] { "UserId" });
+            DropIndex("dbo.Questions", new[] { "QuestionKeywordId" });
             DropIndex("dbo.Questions", new[] { "QuestionGroupId" });
             DropForeignKey("dbo.Votes", "QuestionId", "dbo.Questions");
             DropForeignKey("dbo.Messages", "QuestionId", "dbo.Questions");
             DropForeignKey("dbo.Messages", "UserId", "dbo.UserProfile");
+            DropForeignKey("dbo.Questions", "QuestionKeywordId", "dbo.QuestionKeywords");
             DropForeignKey("dbo.Questions", "QuestionGroupId", "dbo.QuestionGroups");
+            DropTable("dbo.QuestionKeywords");
             DropTable("dbo.QuestionGroups");
             DropTable("dbo.Votes");
             DropTable("dbo.UserProfile");

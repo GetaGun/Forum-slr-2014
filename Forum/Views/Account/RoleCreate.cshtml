@@ -3,15 +3,16 @@
 }
 
 <fieldset>
-    <legend>Role Create</legend>
+    <legend>Role Create</legend>    
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
-        <p>
+        <br />
+        <div>
             <b>Role name</b><br />
-            @Html.TextBox("RoleName")
-        </p>
+            @Html.TextBox("RoleName") <p class="message-success">@ViewBag.ResultMessage_RoleCreate</p>
+        </div>
         <input type="submit" value="Save" /> <text>|</text> @Html.ActionLink("Back", "RoleIndex")
     }
 </fieldset>
